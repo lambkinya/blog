@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>3.0.8</version>
+        <relativePath />
+    </parent>
+
+    <groupId>com.lambkin</groupId>
+    <artifactId>blog</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>博客--父工程</description>
+    <modules>
+        <module>blog-framework</module>
+        <module>blog-admin</module>
+        <module>blog-client</module>
+    </modules>
+
+
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>3.0.8</spring-boot.version>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
+        <org.projectlombok.version>1.18.28</org.projectlombok.version>
+        <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
+        <spring-cloud-starter-openfeign.version>4.0.1</spring-cloud-starter-openfeign.version>
+        <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
+        <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+        <mybatis-plus-core.version>3.5.3</mybatis-plus-core.version>
+        <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
+        <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
+        <annotations.version>24.0.1</annotations.version>
+        <spring-boot-starter-security.version>3.1.0</spring-boot-starter-security.version>
+        <jjwt-api.version>0.11.5</jjwt-api.version>
+
+        <fastjson.version>1.2.83</fastjson.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <minio.version>8.4.3</minio.version>
+        <xxl-job-core.version>2.3.1</xxl-job-core.version>
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
+        <commons-lang3.version>3.10</commons-lang3.version>
+        <okhttp.version>4.8.1</okhttp.version>
+        <swagger-spring-boot-starter.version>1.9.0.RELEASE</swagger-spring-boot-starter.version>
+        <elasticsearch.version>7.12.1</elasticsearch.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot的依赖配置 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- SpringSecurity 启动器-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot-starter-security.version}</version>
+            </dependency>
+            <!-- fastjson依赖 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- MybatisPlus依赖-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <!-- mySQL数据库驱动包管理 -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector-j.version}</version>
+            </dependency>
+            <!-- lombok，简化类的构建 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
