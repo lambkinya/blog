@@ -1,5 +1,5 @@
 server:
-  port: 9999
+  port: 12138
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai

@@ -1,4 +1,4 @@
-package com.lambkin.blog.util;
+package com.lambkin.blog.ya;
 
 import org.springframework.beans.BeanUtils;
 
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p></p>
- * @author lambkin-wow
+ * @author lambkinya
  * @since 2023-09-09 23:02:55
  */
 public class YaBeanCopyUtil {

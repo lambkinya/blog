@@ -1,11 +1,9 @@
-package com.lambkin.blog.common;
-
-import com.lambkin.blog.enums.YaApiCodeEnum;
+package com.lambkin.blog.ya;
 
 import java.io.Serializable;
 
 /**
- * @author lambkin-wow
+ * @author lambkinya
  * @since 2023-09-09 22:43:27
  */
 public class YaApiResult<T> implements Serializable {

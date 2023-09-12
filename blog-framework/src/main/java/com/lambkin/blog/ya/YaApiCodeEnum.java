@@ -1,7 +1,7 @@
-package com.lambkin.blog.enums;
+package com.lambkin.blog.ya;
 
 /**
- * @author lambkin-wow
+ * @author lambkinya
  * @since 2023-09-09 22:44:51
  */
 public enum YaApiCodeEnum {
