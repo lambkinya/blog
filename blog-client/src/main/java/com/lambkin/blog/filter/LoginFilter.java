@@ -13,13 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MimeTypeUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Map;
-
-import static com.lambkin.blog.support.AuthenticationHandler.APPLICATION_JSON_CHARSET_UTF_8;
 
 /**
  * <p>登录过滤器</p>

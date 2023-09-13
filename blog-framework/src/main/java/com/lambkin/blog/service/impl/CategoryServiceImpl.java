@@ -1,12 +1,9 @@
 package com.lambkin.blog.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lambkin.blog.domain.CategoryEntity;
-import com.lambkin.blog.dao.CategoryMapper;
 import com.lambkin.blog.model.CategoryListVo;
 import com.lambkin.blog.service.ICategoryService;
 import com.lambkin.blog.service.query.CategoryQuery;
-import com.lambkin.blog.ya.YaApiResult;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
