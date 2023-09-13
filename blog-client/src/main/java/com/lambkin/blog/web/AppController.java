@@ -1,10 +1,17 @@
 package com.lambkin.blog.web;
 
+import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.model.BlogInfoVo;
+import com.lambkin.blog.model.LoginInfoVo;
+import com.lambkin.blog.service.IAuthService;
+import com.lambkin.blog.service.ICoderService;
+import com.lambkin.blog.service.query.CoderQuery;
+import com.lambkin.blog.ya.YaApiCodeEnum;
 import com.lambkin.blog.ya.YaApiResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.lambkin.blog.ya.YaBeanNoUtil;
+import jakarta.annotation.Resource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -18,6 +25,31 @@ import java.time.LocalDate;
 @RequestMapping
 public class AppController {
 
+    @Resource
+    private IAuthService authServiceImpl;
+    @Resource
+    private CoderQuery coderQuery;
+    @Resource
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+//    @GetMapping("/login")
+//    public YaApiResult<?> login(@RequestBody LoginInfoVo info) {
+//        authServiceImpl.login(info.getAccount(), info.getPassword());
+//        return YaApiResult.okResult("login is successful...");
+//    }
+
+    @PostMapping("/register")
+    public YaApiResult<?> register(@RequestBody LoginInfoVo infoVo) {
+        CoderEntity coderEntity = new CoderEntity();
+        coderEntity.setNo(YaBeanNoUtil.generateNo("YA"));
+        coderEntity.setAccount(infoVo.getAccount());
+        coderEntity.setPassword(bCryptPasswordEncoder.encode(infoVo.getPassword()));
+        coderEntity.setNickname(infoVo.getAccount());
+        coderQuery.save(coderEntity);
+
+        return YaApiResult.okResult(coderEntity.getPassword());
+    }
 
 
     @GetMapping("/blog-info")

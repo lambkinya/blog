@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @MapperScan("com.lambkin.blog.dao")
-@ComponentScan({"com.lambkin.blog.config","com.lambkin.blog.web","com.lambkin.blog.service.impl", "com.lambkin.blog.service.query"})
+@ComponentScan({"com.lambkin.blog.config","com.lambkin.blog.web","com.lambkin.blog.service.impl", "com.lambkin.blog.service.query", "com.lambkin.blog.filter", "com.lambkin.blog.support"})
 public class BlogApplication {
 
     public static void main(String[] args) {

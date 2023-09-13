@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/category")
-public class CategoryEntityController {
+public class CategoryController {
 
     @Resource
     private ICategoryService categoryServiceImpl;

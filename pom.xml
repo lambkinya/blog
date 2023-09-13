@@ -39,9 +39,9 @@
         <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
         <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
         <annotations.version>24.0.1</annotations.version>
-        <spring-boot-starter-security.version>3.1.0</spring-boot-starter-security.version>
         <jjwt-api.version>0.11.5</jjwt-api.version>
 
+        <hutool-all.version>5.8.20</hutool-all.version>
         <fastjson.version>1.2.83</fastjson.version>
         <commons-lang.version>2.6</commons-lang.version>
         <minio.version>8.4.3</minio.version>
@@ -64,17 +64,28 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- SpringWeb -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-
-            <!-- SpringSecurity 启动器-->
+            <!-- JJWT -->
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-security</artifactId>
-                <version>${spring-boot-starter-security.version}</version>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt-api.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-gson</artifactId>
+                <version>${jjwt-api.version}</version>
             </dependency>
             <!-- fastjson依赖 -->
             <dependency>
@@ -100,6 +111,13 @@
                 <artifactId>lombok</artifactId>
                 <version>${org.projectlombok.version}</version>
             </dependency>
+            <!-- 小而全的Java工具类库 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
