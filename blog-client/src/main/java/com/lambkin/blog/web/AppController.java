@@ -2,12 +2,17 @@ package com.lambkin.blog.web;
 
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.model.BlogInfoVo;
+import com.lambkin.blog.model.CoderInfoVo;
 import com.lambkin.blog.model.LoginInfoVo;
 import com.lambkin.blog.service.IAuthService;
 import com.lambkin.blog.service.query.CoderQuery;
 import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.YaBeanCopyUtil;
 import com.lambkin.blog.ya.YaBeanNoUtil;
+import com.lambkin.blog.ya.YaJwtUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +41,25 @@ public class AppController {
 //        authServiceImpl.login(info.getAccount(), info.getPassword());
 //        return YaApiResult.okResult("login is successful...");
 //    }
+
+
+
+    @GetMapping("/info")
+    public YaApiResult<?> queryLoginInfo(HttpServletRequest request) {
+        String apiToken = request.getHeader("Authorization");
+        String token = apiToken.trim().substring("Beaner".length());
+
+        Claims claims = null;
+        try {
+            claims = YaJwtUtil.parse(token);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        String coderNo = claims.getSubject();
+        CoderEntity coder = coderQuery.queryByCoderNo(coderNo);
+
+        return YaApiResult.okResult(YaBeanCopyUtil.copyBean(coder, CoderInfoVo.class));
+    }
 
     @PostMapping("/register")
     public YaApiResult<?> register(@RequestBody LoginInfoVo infoVo) {
