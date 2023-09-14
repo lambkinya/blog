@@ -4,9 +4,12 @@ import com.lambkin.blog.domain.ArticleEntity;
 import com.lambkin.blog.domain.CategoryEntity;
 import com.lambkin.blog.model.ArticleDetailVo;
 import com.lambkin.blog.model.HotArticleListVo;
+import com.lambkin.blog.model.TagVo;
 import com.lambkin.blog.service.IArticleService;
 import com.lambkin.blog.service.query.ArticleQuery;
+import com.lambkin.blog.service.query.ArticleTagQuery;
 import com.lambkin.blog.service.query.CategoryQuery;
+import com.lambkin.blog.service.query.TagQuery;
 import com.lambkin.blog.ya.YaPageBean;
 import com.lambkin.blog.ya.YaApiResult;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
@@ -28,16 +31,24 @@ public class ArticleServiceImpl implements IArticleService {
     private ArticleQuery articleQuery;
     @Resource
     private CategoryQuery categoryQuery;
+    @Resource
+    private ArticleTagQuery articleTagQuery;
+    @Resource
+    private TagQuery tagQuery;
+
 
     @Override
     public ArticleDetailVo queryDetailByNo(String no) {
         ArticleEntity articleEntity = articleQuery.queryDetailByNo(no);
-
         CategoryEntity categoryEntity = categoryQuery.queryByNo(articleEntity.getCategoryNo());
 
         ArticleDetailVo result = YaBeanCopyUtil.copyBean(articleEntity, ArticleDetailVo.class);
+        List<String> tagNoList = articleTagQuery.queryByArticleNo(no);
+
+        List<TagVo> tagList = tagQuery.queryByNos(tagNoList);
 
         result.setCategoryName(categoryEntity.getName());
+        result.setTagList(tagList);
 
         return result;
     }

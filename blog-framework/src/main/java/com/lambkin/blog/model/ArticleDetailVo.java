@@ -3,6 +3,7 @@ package com.lambkin.blog.model;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p></p>
@@ -72,6 +73,11 @@ public class ArticleDetailVo {
      * 是否允许评论 1是，0否
      */
     private String isComment;
+
+    /**
+     * 文章所属标签列表
+     */
+    private List<TagVo> tagList;
 
     /**
      * 创建时间
