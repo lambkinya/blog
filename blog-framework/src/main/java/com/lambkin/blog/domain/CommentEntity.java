@@ -25,7 +25,7 @@ public class CommentEntity extends YaBaseBean {
     private String no;
     
     /**
-     * 评论类型（0代表文章评论，1代表友链评论）
+     * 评论类型（1文章 2友链 3说说）
      */
     private Integer type;
     
@@ -57,7 +57,7 @@ public class CommentEntity extends YaBaseBean {
     /**
      * 所回复的目标评论的用户编号
      */
-    private String toUserNo;
+    private String toCoderNo;
     
     /**
      * 所回复的目标评论的评论编号

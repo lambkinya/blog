@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lambkin.blog.dao.CommentMapper;
 import com.lambkin.blog.domain.CommentEntity;
 import com.lambkin.blog.model.CommentVo;
+import com.lambkin.blog.model.dto.AddCommentDto;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
+import com.lambkin.blog.ya.YaBeanNoUtil;
 import com.lambkin.blog.ya.YaPageBean;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
@@ -51,5 +53,13 @@ public class CommentQuery {
         );
 
         return count;
+    }
+
+    public void add(AddCommentDto comment) {
+        CommentEntity entity = YaBeanCopyUtil.copyBean(comment, CommentEntity.class);
+        entity.setNo(YaBeanNoUtil.generateNo("CN"));
+        entity.setContent(comment.getCommentContent());
+        entity.setType(comment.getCommentType());
+        commentMapper.insert(entity);
     }
 }

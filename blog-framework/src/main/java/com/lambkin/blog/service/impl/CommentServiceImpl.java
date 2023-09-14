@@ -3,6 +3,7 @@ package com.lambkin.blog.service.impl;
 import com.lambkin.blog.dao.CoderMapper;
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.model.CommentVo;
+import com.lambkin.blog.model.dto.AddCommentDto;
 import com.lambkin.blog.service.ICommentService;
 import com.lambkin.blog.service.query.CoderQuery;
 import com.lambkin.blog.service.query.CommentQuery;
@@ -54,6 +55,11 @@ public class CommentServiceImpl implements ICommentService {
         });
 
         return result;
+    }
+
+    @Override
+    public void add(AddCommentDto comment) {
+        commentQuery.add(comment);
     }
 
 

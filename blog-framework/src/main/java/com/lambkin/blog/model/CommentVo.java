@@ -47,7 +47,7 @@ public class CommentVo {
     /**
      * 所回复的目标评论的用户编号
      */
-    private String toUserNo;
+    private String toCoderNo;
 
     /**
      * 回复目标评论编号
