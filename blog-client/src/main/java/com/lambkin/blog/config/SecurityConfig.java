@@ -5,18 +5,26 @@ import com.lambkin.blog.filter.AuthenticationTokenFilter;
 import com.lambkin.blog.filter.LoginFilter;
 import com.lambkin.blog.ya.YaApiCodeEnum;
 import com.lambkin.blog.ya.YaApiResult;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import java.io.IOException;
 
 /**
  * <p></p>
@@ -61,6 +69,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
 //                                .requestMatchers("/blog-info").authenticated()
+//                                .requestMatchers("/logout").authenticated()
                                 .anyRequest().permitAll()
 
         );
@@ -82,9 +91,21 @@ public class SecurityConfig {
                 })
         );
 
+        http
+                .logout(logout ->
+                        logout.invalidateHttpSession(true)
+                                .deleteCookies("JSESSIONID")
+                                .logoutSuccessHandler(new LogoutSuccessHandler() {
+                                    @Override
+                                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                                        response.setContentType("application/json;charset=UTF-8");
+                                        response.setStatus(HttpStatus.OK.value());
+                                        response.getWriter().write(JSON.toJSONString(YaApiResult.okResult("logout - ok")));
+                                    }
+                                })
+                );
 
         http
-                .logout(logout -> logout.invalidateHttpSession(true))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults());
 
