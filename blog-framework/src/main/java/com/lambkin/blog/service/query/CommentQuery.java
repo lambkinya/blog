@@ -36,9 +36,9 @@ public class CommentQuery {
         return YaPageBean.build(entityPage, CommentVo.class);
     }
 
-    public YaPageBean<CommentVo> queryChildrenComment(Integer pageNo, String no) {
+    public YaPageBean<CommentVo> queryChildrenComment(Integer pageNo, Integer pageSize, String no) {
         Page<CommentEntity> entityPage = commentMapper.selectPage(
-                new Page<CommentEntity>(pageNo, 3),
+                new Page<CommentEntity>(pageNo, pageSize),
                 new LambdaQueryWrapper<CommentEntity>()
                         .eq(CommentEntity::getRootCommentNo, no)
                         .orderByDesc(CommentEntity::getCreateTime)

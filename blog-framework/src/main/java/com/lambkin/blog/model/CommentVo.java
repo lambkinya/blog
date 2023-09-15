@@ -50,6 +50,11 @@ public class CommentVo {
     private String toCoderNo;
 
     /**
+     * 所回复的目标评论的用户名
+     */
+    private String toNickname;
+
+    /**
      * 回复目标评论编号
      */
     private String toCommentNo;

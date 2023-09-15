@@ -34,7 +34,7 @@ public class CommentServiceImpl implements ICommentService {
         YaPageBean<CommentVo> result = commentQuery.queryRootComment(pageNo, pageSize, articleNo);
 
         Long count = commentQuery.countArticleComment(articleNo);
-        result.setTotal(count);
+//        result.setTotal(count);
 
         List<CommentVo> commentVoList = this.build(result.getRecords(), pageNo, pageSize);
         result.setRecords(commentVoList);
@@ -43,15 +43,17 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public YaPageBean<CommentVo> queryReplyComment(String commentNo, Integer pageNo) {
-        YaPageBean<CommentVo> result = commentQuery.queryChildrenComment(pageNo, commentNo);
+    public YaPageBean<CommentVo> queryReplyComment(String commentNo, Integer pageNo, Integer pageSize) {
+        YaPageBean<CommentVo> result = commentQuery.queryChildrenComment(pageNo, pageSize, commentNo);
 
         result.getRecords().forEach(item -> {
             String replyNo = item.getCoderNo();
             CoderEntity replyCoderEntity = coderQuery.queryByCoderNo(replyNo);
+            CoderEntity toCoderEntity = coderQuery.queryByCoderNo(item.getToCoderNo());
             item.setAvatar(replyCoderEntity.getAvatar());
             item.setNickname(replyCoderEntity.getNickname());
             item.setPageNo(pageNo);
+            item.setToNickname(toCoderEntity.getNickname());
         });
 
         return result;
@@ -70,13 +72,16 @@ public class CommentServiceImpl implements ICommentService {
             commentVo.setAvatar(coderEntity.getAvatar());
             commentVo.setNickname(coderEntity.getNickname());
 
-            YaPageBean<CommentVo> childrenComment = commentQuery.queryChildrenComment(pageNo, commentVo.getNo());
+            YaPageBean<CommentVo> childrenComment = commentQuery.queryChildrenComment(pageNo, 3, commentVo.getNo());
 
             List<CommentVo> childrenList = childrenComment.getRecords().stream().peek(childrenCommentItem -> {
-                String replyNo = commentVo.getCoderNo();
+                String replyNo = childrenCommentItem.getCoderNo();
                 CoderEntity replyCoderEntity = coderQuery.queryByCoderNo(replyNo);
+                String toCoderNoChildren = childrenCommentItem.getToCoderNo();
+                CoderEntity toCoderChildren = coderQuery.queryByCoderNo(toCoderNoChildren);
                 childrenCommentItem.setAvatar(replyCoderEntity.getAvatar());
                 childrenCommentItem.setNickname(replyCoderEntity.getNickname());
+                childrenCommentItem.setToNickname(toCoderChildren.getNickname());
             }).toList();
 
             commentVo.setChildrenCommentList(childrenList);

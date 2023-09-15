@@ -32,7 +32,13 @@ public class CommentController {
 
     @GetMapping("/{commentNo}/reply")
     public YaApiResult<?> queryReplyComment(@PathVariable String commentNo, Integer pageNo) {
-        YaPageBean<CommentVo> result = commentServiceImpl.queryReplyComment(commentNo, pageNo);
+        YaPageBean<CommentVo> result = commentServiceImpl.queryReplyComment(commentNo, pageNo, 3);
+        return YaApiResult.okResult(result);
+    }
+
+    @GetMapping("/{commentNo}/children")
+    public YaApiResult<?> queryChildrenCommentPage(@PathVariable String commentNo, Integer pageNo) {
+        YaPageBean<CommentVo> result = commentServiceImpl.queryReplyComment(commentNo, pageNo, 5);
         return YaApiResult.okResult(result);
     }
 

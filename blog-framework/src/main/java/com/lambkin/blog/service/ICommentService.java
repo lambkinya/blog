@@ -16,7 +16,7 @@ public interface ICommentService {
 
     YaPageBean<CommentVo> queryList(Integer pageNo, Integer pageSize, String articleNo, Integer type);
 
-    YaPageBean<CommentVo> queryReplyComment(String commentNo, Integer pageNo);
+    YaPageBean<CommentVo> queryReplyComment(String commentNo, Integer pageNo, Integer pageSize);
 
     void add(AddCommentDto comment);
 }
