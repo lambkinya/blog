@@ -1,22 +1,32 @@
 package com.lambkin.blog.web;
 
+import com.google.gson.Gson;
+import com.lambkin.blog.config.OssConfig;
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.model.BlogInfoVo;
 import com.lambkin.blog.model.CoderInfoVo;
 import com.lambkin.blog.model.LoginInfoVo;
 import com.lambkin.blog.service.IAuthService;
 import com.lambkin.blog.service.query.CoderQuery;
-import com.lambkin.blog.ya.YaApiResult;
-import com.lambkin.blog.ya.YaBeanCopyUtil;
-import com.lambkin.blog.ya.YaBeanNoUtil;
-import com.lambkin.blog.ya.YaJwtUtil;
+import com.lambkin.blog.ya.*;
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.Region;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * <p>站点通用API</p>
@@ -34,6 +44,8 @@ public class AppController {
     private CoderQuery coderQuery;
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Resource
+    private OssConfig ossConfig;
 
 
 //    @GetMapping("/login")
@@ -74,6 +86,21 @@ public class AppController {
     }
 
 
+    @PostMapping("/upload")
+    public YaApiResult<?> upload(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        if (!originalFilename.endsWith(".png")
+                && !originalFilename.endsWith(".jpg")
+                && !originalFilename.endsWith(".jpeg")) {
+            throw new RuntimeException();
+        }
+
+        String path = YaCommonHelper.generateFilePath(Objects.requireNonNull(originalFilename));
+        String url = uploadImg(file, path);
+        return YaApiResult.okResult(url);
+    }
+
+
     @GetMapping("/blog-info")
     public YaApiResult<?> test() {
         return YaApiResult.okResult(
@@ -93,5 +120,45 @@ public class AppController {
                         )
                 )
         );
+    }
+
+
+    public String uploadImg(MultipartFile img, String path) {
+        // 构造一个带指定 Region 对象的配置类
+        Configuration cfg = new Configuration(Region.autoRegion());
+        // 指定分片上传版本
+        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;
+
+        UploadManager uploadManager = new UploadManager(cfg);
+
+        try {
+            InputStream inputStream = img.getInputStream();
+
+            Auth auth = Auth.create(ossConfig.getAccessKey(), ossConfig.getSecretKey());
+            String upToken = auth.uploadToken(ossConfig.getBucket());
+
+            try {
+                Response response = uploadManager.put(inputStream,path,upToken,null, null);
+                //解析上传成功的结果
+                DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+
+                return ossConfig.getDomainName() + path;
+            } catch (QiniuException ex) {
+                ex.printStackTrace();
+                if (ex.response != null) {
+                    System.err.println(ex.response);
+
+                    try {
+                        String body = ex.response.toString();
+                        System.err.println(body);
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 }

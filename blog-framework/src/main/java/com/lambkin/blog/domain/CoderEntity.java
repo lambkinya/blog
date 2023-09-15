@@ -52,6 +52,11 @@ public class CoderEntity extends YaBaseBean {
      * gitee地址
      */
     private String gitee;
+
+    /**
+     * 个人网站地址
+     */
+    private String website;
     
     /**
      * 邮箱

@@ -33,4 +33,8 @@ public class CoderQuery {
                 new LambdaQueryWrapper<CoderEntity>().eq(CoderEntity::getNo, no)
         );
     }
+
+    public void update(CoderEntity coderEntity) {
+        coderMapper.updateById(coderEntity);
+    }
 }
