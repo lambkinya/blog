@@ -1,4 +1,4 @@
-package com.lambkin.blog.model;
+package com.lambkin.blog.model.vo;
 
 import lombok.Data;
 
@@ -20,4 +20,9 @@ public class TagVo {
      * 标签名
      */
     private String name;
+
+    /**
+     * 描述
+     */
+    private String description;
 }

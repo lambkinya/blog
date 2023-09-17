@@ -5,10 +5,10 @@ import com.lambkin.blog.domain.ArticleEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * <p>文章表--Article</p>
+ * <p>文章表--mapper</p>
  *
  * @author lambkinya
- * @since 2023-09-10 03:52:34
+ * @since 2023-09-17 13:25:24
  */
 @Mapper
 public interface ArticleMapper extends BaseMapper<ArticleEntity> {

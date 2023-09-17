@@ -5,10 +5,10 @@ import com.lambkin.blog.domain.CommentEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * <p>评论表--Comment--mapper</p>
+ * <p>评论表--mapper</p>
  *
  * @author lambkinya
- * @since 2023-09-14 00:25:58
+ * @since 2023-09-17 13:25:25
  */
 @Mapper
 public interface CommentMapper extends BaseMapper<CommentEntity> {

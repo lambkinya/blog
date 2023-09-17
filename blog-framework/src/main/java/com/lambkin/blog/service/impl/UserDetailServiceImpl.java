@@ -2,7 +2,7 @@ package com.lambkin.blog.service.impl;
 
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.model.User;
-import com.lambkin.blog.service.ICoderService;
+import com.lambkin.blog.service.query.CoderQuery;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Resource
-    private ICoderService coderServiceImpl;
+    private CoderQuery coderQuery;
 
 
     /**
@@ -32,12 +32,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final CoderEntity coder = coderServiceImpl.queryByAccount(username);
+        final CoderEntity coder = coderQuery.queryByUsername(username);
         if (coder == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
         User user = new User();
-        user.setUsername(coder.getAccount());
+        user.setUsername(coder.getUsername());
         user.setPassword(coder.getPassword());
         user.setId(coder.getNo());
         return user;

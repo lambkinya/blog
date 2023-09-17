@@ -2,24 +2,25 @@ package com.lambkin.blog.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lambkin.blog.ya.YaBaseBean;
-import java.io.Serial;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
+
 /**
- * <p>文章表--Article--entity</p>
+ * <p>文章表--entity</p>
  *
  * @author lambkinya
- * @since 2023-09-10 20:02:01
+ * @since 2023-09-17 13:25:24
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("article")
 public class ArticleEntity extends YaBaseBean {
 
     @Serial
-    private static final long serialVersionUID = -64058372545497309L;
-    
+    private static final long serialVersionUID = -72130369177915062L;
+
     /**
      * 文章编号
      */
@@ -29,51 +30,67 @@ public class ArticleEntity extends YaBaseBean {
      * Coder编号
      */
     private String coderNo;
-    
-    /**
-     * 标题
-     */
-    private String title;
-    
-    /**
-     * 文章内容
-     */
-    private String content;
-    
-    /**
-     * 文章摘要
-     */
-    private String summary;
-    
+
     /**
      * 所属分类编号
      */
     private String categoryNo;
-    
+
+    /**
+     * 所属标签编号
+     */
+    private String tagNo;
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 文章内容
+     */
+    private String content;
+
+    /**
+     * 文章摘要
+     */
+    private String summary;
+
     /**
      * 缩略图
      */
     private String thumbnail;
-    
+
     /**
-     * 是否置顶（0否，1是）
+     * 密码
      */
-    private String isTop;
-    
-    /**
-     * 状态（0草稿，1.公开，2.仅自己可见，3...）
-     */
-    private String status;
-    
+    private String password;
+
     /**
      * 访问量
      */
-    private Long viewCount;
-    
+    private Integer viewCount;
+
     /**
-     * 是否允许评论 1是，0否
+     * 点赞数
      */
-    private String isComment;
+    private Integer likeCount;
+
+    /**
+     * 是否推荐[0:否，1:是]
+     */
+    private Integer recommendStatus;
+
+    /**
+     * 文章状态（0草稿，1.公开，2.仅自己可见，3...）
+     */
+    private Integer viewStatus;
+
+    /**
+     * 是否允许评论 0否，1是
+     */
+    private Integer commentStatus;
+
 }
 
 

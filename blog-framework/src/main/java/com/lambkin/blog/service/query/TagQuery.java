@@ -3,7 +3,7 @@ package com.lambkin.blog.service.query;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lambkin.blog.dao.TagMapper;
 import com.lambkin.blog.domain.TagEntity;
-import com.lambkin.blog.model.TagVo;
+import com.lambkin.blog.model.vo.TagVo;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
@@ -28,5 +28,17 @@ public class TagQuery {
         );
 
         return YaBeanCopyUtil.copyBeanList(tagEntityList, TagVo.class);
+    }
+
+    public TagEntity queryByNo(String tagNo) {
+        return tagMapper.selectOne(
+                new LambdaQueryWrapper<TagEntity>().eq(TagEntity::getNo, tagNo)
+        );
+    }
+
+    public List<TagEntity> queryListByCategoryNo(String categoryNo) {
+        return tagMapper.selectList(
+                new LambdaQueryWrapper<TagEntity>().eq(TagEntity::getCategoryNo, categoryNo)
+        );
     }
 }

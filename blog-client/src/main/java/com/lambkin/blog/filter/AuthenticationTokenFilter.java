@@ -52,7 +52,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
         User user = new User();
         user.setId(coderNo);
-        user.setUsername(coderEntity.getAccount());
+        user.setUsername(coderEntity.getUsername());
         user.setPassword(coderEntity.getPassword());
 
         //存入SecurityContextHolder

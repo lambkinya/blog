@@ -1,16 +1,18 @@
 package com.lambkin.blog.web;
 
-import com.lambkin.blog.ya.YaPageBean;
-import com.lambkin.blog.ya.YaApiResult;
-import jakarta.annotation.Resource;
+import com.lambkin.blog.model.dto.ArticlePageDto;
+import com.lambkin.blog.model.vo.ArticleDetailVo;
 import com.lambkin.blog.service.IArticleService;
+import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.YaPageBean;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>文章表--Article</p>
+ * <p>文章表--web</p>
  *
  * @author lambkinya
- * @since 2023-09-10 04:04:50
+ * @since 2023-09-17 14:13:13
  */
 @RestController
 @RequestMapping("/articles")
@@ -20,26 +22,18 @@ public class ArticleController {
     private IArticleService articleServiceImpl;
 
 
-    @GetMapping("/hotArticleList")
-    public YaApiResult<?> queryHotArticleList() {
-        return articleServiceImpl.queryHotArticleList();
+    @PostMapping("/list")
+    public YaApiResult<?> queryArticleByConditionPage(@RequestBody ArticlePageDto dto) {
+        YaPageBean<?> result = articleServiceImpl.queryArticleByConditionPage(dto);
+        return YaApiResult.ok(result);
     }
 
-    @GetMapping("/{no}")
-    public YaApiResult<?> queryDetail(@PathVariable("no") String no) {
-        return YaApiResult.okResult(articleServiceImpl.queryDetailByNo(no));
+
+    @GetMapping("/detail")
+    public YaApiResult<?> queryArticleDetailByNo(String no) {
+        ArticleDetailVo result = articleServiceImpl.queryArticleDetailByNo(no);
+        return YaApiResult.ok(result);
     }
 
-    @GetMapping("/page")
-    public YaApiResult<?> queryPage(Integer pageNo, Integer pageSize, String categoryNo) {
-        YaPageBean<?> result = articleServiceImpl.queryPage(pageNo, pageSize, categoryNo);
-        return YaApiResult.okResult(result);
-    }
-
-    @GetMapping("/list-desc")
-    public YaApiResult<?> queryDesc(Integer pageNo, Integer pageSize) {
-        YaPageBean<?> result = articleServiceImpl.queryDesc(pageNo, pageSize);
-        return YaApiResult.okResult(result);
-    }
 }
 

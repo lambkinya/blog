@@ -1,32 +1,19 @@
 package com.lambkin.blog.service;
 
-import com.lambkin.blog.model.ArticleDetailVo;
+import com.lambkin.blog.model.dto.ArticlePageDto;
+import com.lambkin.blog.model.vo.ArticleDetailVo;
 import com.lambkin.blog.ya.YaPageBean;
-import com.lambkin.blog.ya.YaApiResult;
 
 /**
- * <p>文章表--Article</p>
+ * <p>文章表--service</p>
  *
  * @author lambkinya
- * @since 2023-09-10 03:50:49
+ * @since 2023-09-17 13:25:24
  */
 public interface IArticleService {
 
-    /**
-     * 文章详情
-     * @param no 文章编号
-     * @return ArticleDetailVo
-     */
-    ArticleDetailVo queryDetailByNo(String no);
+    YaPageBean<?> queryArticleByConditionPage(ArticlePageDto dto);
 
-    /**
-     * 查询热门文章
-     * @return
-     */
-    YaApiResult<?> queryHotArticleList();
-
-    YaPageBean<?> queryPage(Integer pageNo, Integer pageSize, String categoryNo);
-
-    YaPageBean<?> queryDesc(Integer pageNo, Integer pageSize);
+    ArticleDetailVo queryArticleDetailByNo(String no);
 }
 

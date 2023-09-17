@@ -1,10 +1,10 @@
 package com.lambkin.blog.service;
 
 /**
- * <p>标签--Tag--service</p>
+ * <p>标签表--service</p>
  *
  * @author lambkinya
- * @since 2023-09-14 20:49:26
+ * @since 2023-09-17 13:25:27
  */
 public interface ITagService {
 

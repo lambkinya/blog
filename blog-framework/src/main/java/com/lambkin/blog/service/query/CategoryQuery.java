@@ -1,12 +1,10 @@
 package com.lambkin.blog.service.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.lambkin.blog.constant.BlogConstant;
 import com.lambkin.blog.dao.CategoryMapper;
 import com.lambkin.blog.domain.CategoryEntity;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -30,8 +28,13 @@ public class CategoryQuery {
     }
 
     public List<CategoryEntity> queryListByNo(String categoryNo) {
-        return categoryMapper.selectList(new LambdaQueryWrapper<CategoryEntity>().eq(
-                CategoryEntity::getParentNo, StringUtils.hasText(categoryNo) ? categoryNo : BlogConstant.ROOT_CATEGORY
-        ));
+//        return categoryMapper.selectList(new LambdaQueryWrapper<CategoryEntity>().eq(
+//                CategoryEntity::getParentNo, StringUtils.hasText(categoryNo) ? categoryNo : BlogConstant.ROOT_CATEGORY
+//        ));
+        return null;
+    }
+
+    public List<CategoryEntity> queryList() {
+         return categoryMapper.selectList(null);
     }
 }

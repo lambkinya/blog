@@ -56,7 +56,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler, Auth
         response.setStatus(HttpStatus.OK.value());
         // SecurityContext在设置Authentication的时候并不会自动写入Session，读的时候却会根据Session判断，所以需要手动写入一次，否则下一次刷新时SecurityContext是新创建的实例。
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        response.getWriter().write(JSON.toJSONString(YaApiResult.okResult(token)));
+        response.getWriter().write(JSON.toJSONString(YaApiResult.ok(token)));
     }
 
 }

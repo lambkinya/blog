@@ -10,68 +10,50 @@ public class YaApiResult<T> implements Serializable {
 
     private Boolean flag;
     private Integer code;
-    private String msg;
+    private String message;
     private T data;
+    
 
-    public YaApiResult() {
-        this.code = YaApiCodeEnum.SUCCESS.getCode();
-        this.msg = YaApiCodeEnum.SUCCESS.getMsg();
+    private YaApiResult(Boolean yn) {
+        if (yn) {
+            this.code = YaApiCodeEnum.SUCCESS.getCode();
+            this.message = YaApiCodeEnum.SUCCESS.getMsg();
+            this.flag = true;
+        }else {
+            this.flag = false;
+        }
     }
-
-    public YaApiResult(Integer code, T data) {
+    
+    private YaApiResult(Integer code, String message) {
         this.code = code;
-        this.data = data;
+        this.message = message;
     }
 
-    public YaApiResult(Integer code, String msg, T data) {
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
 
-    public YaApiResult(Integer code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public static YaApiResult<?> error(int code, String msg) {
-        YaApiResult<?> result = new YaApiResult<>();
+    public static YaApiResult<?> error(int code, String message) {
+        YaApiResult<?> result = new YaApiResult<>(code, message);
         result.setFlag(false);
-        result.setCode(code);
-        result.setMsg(msg);
         return result;
     }
 
     public static YaApiResult<?> error(YaApiCodeEnum codeEnum) {
-        YaApiResult<?> result = new YaApiResult<>();
+        YaApiResult<?> result = new YaApiResult<>(codeEnum.getCode(), codeEnum.getMsg());
         result.setFlag(false);
-        result.setCode(codeEnum.getCode());
-        result.setMsg(codeEnum.getMsg());
         return result;
     }
 
-    public static YaApiResult<?> okResult() {
-        YaApiResult<?> result = new YaApiResult<>();
-        result.setCode(YaApiCodeEnum.SUCCESS.getCode());
-        result.setMsg(YaApiCodeEnum.SUCCESS.getMsg());
-        result.setFlag(true);
-        return result;
+    public static YaApiResult<?> ok() {
+        return new YaApiResult<>(true);
     }
-    public static YaApiResult<?> okResult(int code, String msg) {
-        YaApiResult<?> result = new YaApiResult<>();
-        result.setCode(code);
-        result.setMsg(msg);
+    public static YaApiResult<?> ok(int code, String message) {
+        YaApiResult<?> result = new YaApiResult<>(code, message);
+        result.setFlag(true);
         return result;
     }
 
-    public static <V> YaApiResult<V> okResult(V data) {
-        YaApiResult<V> result = new YaApiResult<>();
-        if(data!=null) {
-            result.setData(data);
-        }
-        result.setCode(YaApiCodeEnum.SUCCESS.getCode());
-        result.setMsg(YaApiCodeEnum.SUCCESS.getMsg());
-        result.setFlag(true);
+    public static <V> YaApiResult<V> ok(V data) {
+        YaApiResult<V> result = new YaApiResult<>(true);
+        result.setData(data);
         return result;
     }
 
@@ -85,11 +67,11 @@ public class YaApiResult<T> implements Serializable {
     }
 
     public String getMsg() {
-        return msg;
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMsg(String message) {
+        this.message = message;
     }
 
     public T getData() {

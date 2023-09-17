@@ -1,21 +1,15 @@
 package com.lambkin.blog.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.lambkin.blog.domain.CoderEntity;
-import com.lambkin.blog.model.dto.CoderSimpleInfoDto;
 
 /**
- * <p>Coder--Coder--service</p>
+ * <p>Coder--service</p>
  *
  * @author lambkinya
- * @since 2023-09-13 11:17:14
+ * @since 2023-09-17 13:25:24
  */
 public interface ICoderService {
 
-    CoderEntity queryByAccount(String account);
-
-    CoderEntity queryByNo(String no);
-
-    void updateCoderSimpleInfo(CoderSimpleInfoDto dto);
+    CoderEntity queryByNo(String coderNo);
 }
 

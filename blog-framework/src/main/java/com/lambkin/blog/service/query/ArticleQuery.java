@@ -1,21 +1,17 @@
 package com.lambkin.blog.service.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lambkin.blog.constant.BlogConstant;
 import com.lambkin.blog.dao.ArticleMapper;
 import com.lambkin.blog.dao.CategoryMapper;
 import com.lambkin.blog.domain.ArticleEntity;
-import com.lambkin.blog.domain.CategoryEntity;
-import com.lambkin.blog.model.ArticleListVo;
-import com.lambkin.blog.ya.YaBeanCopyUtil;
 import com.lambkin.blog.ya.YaPageBean;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * <p></p>
@@ -43,38 +39,61 @@ public class ArticleQuery {
     }
 
     public YaPageBean<?> queryPage(Integer pageNo, Integer pageSize, String categoryNo) {
-        Page<ArticleEntity> entityPage = articleMapper.selectPage(
-                new Page<ArticleEntity>(pageNo, pageSize),
-                new LambdaQueryWrapper<ArticleEntity>()
-                        .eq(ArticleEntity::getStatus, BlogConstant.ARTICLE_STATUS_PUBLIC)
-                        .eq(StringUtils.hasText(categoryNo), ArticleEntity::getCategoryNo, categoryNo)
-                        .orderByDesc(ArticleEntity::getIsTop)
-        );
-
-        List<ArticleListVo> records = entityPage.getRecords().stream().map(new Function<ArticleEntity, ArticleListVo>() {
-            @Override
-            public ArticleListVo apply(ArticleEntity entity) {
-                ArticleListVo vo = YaBeanCopyUtil.copyBean(entity, ArticleListVo.class);
-                CategoryEntity categoryEntity = categoryMapper.selectOne(
-                        new LambdaQueryWrapper<CategoryEntity>()
-                                .eq(CategoryEntity::getNo, entity.getCategoryNo())
-                );
-                vo.setCategoryName(categoryEntity.getName());
-                return vo;
-            }
-        }).toList();
-
-        return YaPageBean.build(entityPage, records);
+//        Page<ArticleEntity> entityPage = articleMapper.selectPage(
+//                new Page<ArticleEntity>(pageNo, pageSize),
+//                new LambdaQueryWrapper<ArticleEntity>()
+//                        .eq(ArticleEntity::getStatus, BlogConstant.ARTICLE_STATUS_PUBLIC)
+//                        .eq(StringUtils.hasText(categoryNo), ArticleEntity::getCategoryNo, categoryNo)
+//                        .orderByDesc(ArticleEntity::getIsTop)
+//        );
+//
+//        List<ArticleListVo> records = entityPage.getRecords().stream().map(new Function<ArticleEntity, ArticleListVo>() {
+//            @Override
+//            public ArticleListVo apply(ArticleEntity entity) {
+//                ArticleListVo vo = YaBeanCopyUtil.copyBean(entity, ArticleListVo.class);
+//                CategoryEntity categoryEntity = categoryMapper.selectOne(
+//                        new LambdaQueryWrapper<CategoryEntity>()
+//                                .eq(CategoryEntity::getNo, entity.getCategoryNo())
+//                );
+//                vo.setCategoryName(categoryEntity.getName());
+//                return vo;
+//            }
+//        }).toList();
+//
+//        return YaPageBean.build(entityPage, records);
+        return null;
     }
 
     public YaPageBean<?> queryDesc(Integer pageNo, Integer pageSize) {
-        Page<ArticleEntity> entityPage = articleMapper.selectPage(
-                new Page<ArticleEntity>(pageNo, pageSize),
-                new LambdaQueryWrapper<ArticleEntity>()
-                        .eq(ArticleEntity::getStatus, BlogConstant.ARTICLE_STATUS_PUBLIC)
-                        .orderByDesc(ArticleEntity::getCreateTime)
-        );
+//        Page<ArticleEntity> entityPage = articleMapper.selectPage(
+//                new Page<ArticleEntity>(pageNo, pageSize),
+//                new LambdaQueryWrapper<ArticleEntity>()
+//                        .eq(ArticleEntity::getStatus, BlogConstant.ARTICLE_STATUS_PUBLIC)
+//                        .orderByDesc(ArticleEntity::getCreateTime)
+//        );
+//
+//        return YaPageBean.build(entityPage, ArticleListVo.class);
+        return null;
+    }
 
-        return YaPageBean.build(entityPage, ArticleListVo.class);
+    public IPage<ArticleEntity> queryArticleByConditionPage(String key, String categoryNo, Integer current, Integer size) {
+        return articleMapper.selectPage(
+                new Page<ArticleEntity>(current, size),
+                new LambdaQueryWrapper<ArticleEntity>()
+                        .like(StringUtils.hasText(key), ArticleEntity::getTitle, key)
+                        .eq(StringUtils.hasText(categoryNo), ArticleEntity::getCategoryNo, categoryNo)
+        );
+    }
+
+    public Integer countCategoryArticle(String categoryNo) {
+        return articleMapper.selectCount(
+                new LambdaQueryWrapper<ArticleEntity>().eq(ArticleEntity::getCategoryNo, categoryNo)
+        ).intValue();
+    }
+
+    public Integer countTagArticle(String tagNo) {
+        return articleMapper.selectCount(
+                new LambdaQueryWrapper<ArticleEntity>().eq(ArticleEntity::getTagNo, tagNo)
+        ).intValue();
     }
 }

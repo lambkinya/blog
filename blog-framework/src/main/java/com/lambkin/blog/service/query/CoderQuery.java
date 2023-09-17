@@ -18,9 +18,9 @@ public class CoderQuery {
     @Resource
     private CoderMapper coderMapper;
 
-    public CoderEntity queryByAccount(String account) {
+    public CoderEntity queryByUsername(String username) {
         return coderMapper.selectOne(
-                new LambdaQueryWrapper<CoderEntity>().eq(CoderEntity::getAccount, account)
+                new LambdaQueryWrapper<CoderEntity>().eq(CoderEntity::getUsername, username)
         );
     }
 
@@ -37,4 +37,5 @@ public class CoderQuery {
     public void update(CoderEntity coderEntity) {
         coderMapper.updateById(coderEntity);
     }
+
 }

@@ -1,27 +1,33 @@
 package com.lambkin.blog.web;
 
+import com.lambkin.blog.model.vo.CategoryDetailVo;
+import com.lambkin.blog.service.ICategoryService;
 import com.lambkin.blog.ya.YaApiResult;
 import jakarta.annotation.Resource;
-import com.lambkin.blog.service.ICategoryService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
- * <p>分类表--Category--web</p>
+ * <p>分类表--web</p>
  *
  * @author lambkinya
- * @since 2023-09-10 10:40:57
+ * @since 2023-09-17 14:13:13
  */
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
 
     @Resource
     private ICategoryService categoryServiceImpl;
 
 
-    @GetMapping("/getCategoryList")
-    public YaApiResult<?> getCategoryList(String categoryNo) {
-        return YaApiResult.okResult(categoryServiceImpl.queryList(categoryNo));
+    @GetMapping("/list")
+    public YaApiResult<?> queryCategoryList() {
+        List<CategoryDetailVo> result = categoryServiceImpl.queryCategoryList();
+        return YaApiResult.ok(result);
     }
 
 }

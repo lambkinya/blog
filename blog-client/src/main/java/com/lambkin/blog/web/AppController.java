@@ -70,19 +70,18 @@ public class AppController {
         String coderNo = claims.getSubject();
         CoderEntity coder = coderQuery.queryByCoderNo(coderNo);
 
-        return YaApiResult.okResult(YaBeanCopyUtil.copyBean(coder, CoderInfoVo.class));
+        return YaApiResult.ok(YaBeanCopyUtil.copyBean(coder, CoderInfoVo.class));
     }
 
     @PostMapping("/register")
     public YaApiResult<?> register(@RequestBody LoginInfoVo infoVo) {
         CoderEntity coderEntity = new CoderEntity();
         coderEntity.setNo(YaBeanNoUtil.generateNo("YA"));
-        coderEntity.setAccount(infoVo.getAccount());
+        coderEntity.setUsername(infoVo.getAccount());
         coderEntity.setPassword(bCryptPasswordEncoder.encode(infoVo.getPassword()));
-        coderEntity.setNickname(infoVo.getAccount());
         coderQuery.save(coderEntity);
 
-        return YaApiResult.okResult(coderEntity.getPassword());
+        return YaApiResult.ok(coderEntity.getPassword());
     }
 
 
@@ -97,13 +96,13 @@ public class AppController {
 
         String path = YaCommonHelper.generateFilePath(Objects.requireNonNull(originalFilename));
         String url = uploadImg(file, path);
-        return YaApiResult.okResult(url);
+        return YaApiResult.ok(url);
     }
 
 
     @GetMapping("/blog-info")
     public YaApiResult<?> test() {
-        return YaApiResult.okResult(
+        return YaApiResult.ok(
                 new BlogInfoVo(4, 3, 3, 26556,
                         new BlogInfoVo.SiteConfig(
                                 1,"https://static.ttkwsd.top/config/7b6f25adc2b9627b8918176888bee3b5.png",

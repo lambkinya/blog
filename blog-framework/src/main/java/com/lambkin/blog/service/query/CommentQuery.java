@@ -47,12 +47,10 @@ public class CommentQuery {
         return YaPageBean.build(entityPage, CommentVo.class);
     }
 
-    public Long countArticleComment(String articleNo) {
-        Long count = commentMapper.selectCount(
+    public Integer countArticleComment(String articleNo) {
+        return commentMapper.selectCount(
                 new LambdaQueryWrapper<CommentEntity>().eq(CommentEntity::getArticleNo, articleNo)
-        );
-
-        return count;
+        ).intValue();
     }
 
     public void add(AddCommentDto comment) {

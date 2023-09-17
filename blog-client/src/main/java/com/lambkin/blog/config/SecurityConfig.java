@@ -100,7 +100,7 @@ public class SecurityConfig {
                                     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                                         response.setContentType("application/json;charset=UTF-8");
                                         response.setStatus(HttpStatus.OK.value());
-                                        response.getWriter().write(JSON.toJSONString(YaApiResult.okResult("logout - ok")));
+                                        response.getWriter().write(JSON.toJSONString(YaApiResult.ok("logout - ok")));
                                     }
                                 })
                 );

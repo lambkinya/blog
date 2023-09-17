@@ -1,24 +1,17 @@
 package com.lambkin.blog.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.lambkin.blog.domain.CategoryEntity;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.model.vo.CategoryDetailVo;
 
 import java.util.List;
 
 /**
- * <p>分类表--Category--service</p>
+ * <p>分类表--service</p>
  *
  * @author lambkinya
- * @since 2023-09-10 10:40:57
+ * @since 2023-09-17 13:25:24
  */
 public interface ICategoryService {
 
-    /**
-     * 查询分类列表
-     * @param categoryNo 父分类ID
-     * @return YaApiResult<List<CategoryListVo>>
-     */
-    List<?> queryList(String categoryNo);
+    List<CategoryDetailVo> queryCategoryList();
 }
 

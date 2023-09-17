@@ -1,9 +1,8 @@
-package com.lambkin.blog.model;
+package com.lambkin.blog.model.vo;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * <p></p>
@@ -25,7 +24,7 @@ public class ArticleDetailVo {
     private String coderNo;
 
     /**
-     * Coder
+     * Coder用户名
      */
     private String coderName;
 
@@ -35,24 +34,14 @@ public class ArticleDetailVo {
     private String title;
 
     /**
-     * 文章内容
-     */
-    private String content;
-
-    /**
      * 文章摘要
      */
     private String summary;
 
     /**
-     * 所属分类编号
+     * 文章内容
      */
-    private String categoryNo;
-
-    /**
-     * 所属分类名称
-     */
-    private String categoryName;
+    private String content;
 
     /**
      * 缩略图
@@ -60,27 +49,42 @@ public class ArticleDetailVo {
     private String thumbnail;
 
     /**
-     * 是否置顶（0否，1是）
+     * 访问数
      */
-    private String isTop;
+    private Integer viewCount;
 
     /**
-     * 访问量
+     * 点赞数
      */
-    private Long viewCount;
+    private Integer likeCount;
 
     /**
-     * 是否允许评论 1是，0否
+     * 评论数
      */
-    private String isComment;
+    private Integer commentCount;
 
     /**
-     * 文章所属标签列表
+     * 分类信息
      */
-    private List<TagVo> tagList;
+    private CategoryVo categoryInfo;
+
+    /**
+     * 标签信息
+     */
+    private TagVo tagInfo;
+
+    /**
+     * 是否允许评论 0否，1是
+     */
+    private Integer commentStatus;
 
     /**
      * 创建时间
      */
     private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 }
