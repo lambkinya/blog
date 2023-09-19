@@ -6,10 +6,7 @@ import com.lambkin.blog.domain.CategoryEntity;
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.domain.TagEntity;
 import com.lambkin.blog.model.dto.ArticlePageDto;
-import com.lambkin.blog.model.vo.ArticleDetailVo;
-import com.lambkin.blog.model.vo.ArticlePageVo;
-import com.lambkin.blog.model.vo.CategoryVo;
-import com.lambkin.blog.model.vo.TagVo;
+import com.lambkin.blog.model.vo.*;
 import com.lambkin.blog.service.IArticleService;
 import com.lambkin.blog.service.query.*;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
@@ -45,15 +42,15 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public YaPageBean<?> queryArticleByConditionPage(ArticlePageDto dto) {
 
-        IPage<ArticleEntity> articleEntityPage = articleQuery.queryArticleByConditionPage(
-                dto.getKey(), dto.getCategoryNo(), dto.getCurrent(), dto.getSize()
+        IPage<ArticleEntity> pageInfo = articleQuery.queryArticleByConditionPage(
+                dto.getKey(), dto.getCategoryNo(), false, dto.getCurrent(), dto.getSize()
         );
 
-        List<ArticlePageVo> articleList = articleEntityPage.getRecords().stream().map(
+        List<ArticlePageVo> articleList = pageInfo.getRecords().stream().map(
                 article -> buildArticleOtherInfo(article, ArticlePageVo.class)
         ).toList();
 
-        return YaPageBean.build(articleEntityPage, articleList);
+        return YaPageBean.build(pageInfo, articleList);
     }
 
 
@@ -71,6 +68,23 @@ public class ArticleServiceImpl implements IArticleService {
         return result;
     }
 
+    @Override
+    public YaPageBean<?> queryRecommendArticlePage(Long current, Long size) {
+        IPage<ArticleEntity> pageInfo = articleQuery.queryArticleByConditionPage(
+                null, null, true, current, size
+        );
+
+        List<RecommendArticleVo> recommendArticleVos = pageInfo.getRecords().stream().map(entity -> {
+            RecommendArticleVo recommendArticleVo = YaBeanCopyUtil.copyBean(entity, RecommendArticleVo.class);
+            CategoryEntity categoryEntity = categoryQuery.queryByNo(entity.getCategoryNo());
+
+            recommendArticleVo.setCategoryName(categoryEntity.getName());
+
+            return recommendArticleVo;
+        }).toList();
+
+        return YaPageBean.build(pageInfo, recommendArticleVos);
+    }
 
 
     /**
@@ -81,11 +95,11 @@ public class ArticleServiceImpl implements IArticleService {
      * @param <V> com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
      */
     private <V> V buildArticleOtherInfo(ArticleEntity entity, Class<V> clazz) {
-        Integer commentCount = commentQuery.countArticleComment(entity.getNo());
+        Integer commentCount = commentQuery.countCommentTotalByArticleNo(entity.getNo());
         CategoryEntity category = categoryQuery.queryByNo(entity.getCategoryNo());
         TagEntity tag = tagQuery.queryByNo(entity.getTagNo());
 
-        V article = (V) YaBeanCopyUtil.copyBean(entity, clazz);
+        V article = YaBeanCopyUtil.copyBean(entity, clazz);
 
         try {
             Method setCategoryInfo = clazz.getDeclaredMethod("setCategoryInfo", CategoryVo.class);

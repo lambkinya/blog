@@ -15,5 +15,7 @@ public interface IArticleService {
     YaPageBean<?> queryArticleByConditionPage(ArticlePageDto dto);
 
     ArticleDetailVo queryArticleDetailByNo(String no);
+
+    YaPageBean<?> queryRecommendArticlePage(Long current, Long size);
 }
 

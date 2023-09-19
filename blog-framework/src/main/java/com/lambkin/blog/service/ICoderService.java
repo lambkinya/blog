@@ -1,6 +1,7 @@
 package com.lambkin.blog.service;
 
 import com.lambkin.blog.domain.CoderEntity;
+import com.lambkin.blog.model.CoderInfoVo;
 
 /**
  * <p>Coder--service</p>
@@ -11,5 +12,7 @@ import com.lambkin.blog.domain.CoderEntity;
 public interface ICoderService {
 
     CoderEntity queryByNo(String coderNo);
+
+    CoderInfoVo queryInfoByNo(String apiToken);
 }
 

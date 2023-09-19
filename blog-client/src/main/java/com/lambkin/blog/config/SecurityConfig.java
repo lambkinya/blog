@@ -22,7 +22,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 
 import java.io.IOException;
 
@@ -94,6 +96,7 @@ public class SecurityConfig {
         http
                 .logout(logout ->
                         logout.invalidateHttpSession(true)
+                                .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.COOKIES)))
                                 .deleteCookies("JSESSIONID")
                                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                                     @Override

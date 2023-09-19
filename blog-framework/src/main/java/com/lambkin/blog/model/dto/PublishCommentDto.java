@@ -9,15 +9,15 @@ import lombok.Data;
  * @since 2023-09-15 01:16:00
  */
 @Data
-public class AddCommentDto {
+public class PublishCommentDto {
 
     private String articleNo;
 
     private String coderNo;
 
-    private String commentContent;
+    private String content;
 
-    private Integer commentType;
+    private Integer type;
 
     private String rootCommentNo;
 

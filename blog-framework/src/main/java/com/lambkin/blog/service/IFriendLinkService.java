@@ -1,5 +1,10 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.model.dto.ApplyFriendLinkDto;
+import com.lambkin.blog.model.vo.FriendLinkVo;
+
+import java.util.List;
+
 /**
  * <p>友链表--service</p>
  *
@@ -8,5 +13,8 @@ package com.lambkin.blog.service;
  */
 public interface IFriendLinkService {
 
+    List<FriendLinkVo> queryFriendLinks();
+
+    void applyFriendLink(ApplyFriendLinkDto dto);
 }
 

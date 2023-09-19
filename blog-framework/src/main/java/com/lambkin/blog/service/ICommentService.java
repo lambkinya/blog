@@ -1,5 +1,9 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.model.dto.CommentPageDto;
+import com.lambkin.blog.model.dto.PublishCommentDto;
+import com.lambkin.blog.ya.YaPageBean;
+
 /**
  * <p>评论表--service</p>
  *
@@ -8,5 +12,10 @@ package com.lambkin.blog.service;
  */
 public interface ICommentService {
 
+    YaPageBean<?> queryCommentByConditionPage(CommentPageDto dto);
+
+    void publishComment(PublishCommentDto dto);
+
+    Integer countCommentTotalByArticleNo(String articleNo);
 }
 

@@ -17,19 +17,24 @@ public class CoderInfoVo {
     private String no;
 
     /**
-     * 账号
+     * 用户名
      */
-    private String account;
+    private String username;
 
     /**
-     * 昵称
+     * 性别[1:男，2:女，0:保密]
      */
-    private String nickname;
+    private Integer gender;
 
     /**
      * 头像地址
      */
     private String avatar;
+
+    /**
+     * 个人网站地址
+     */
+    private String website;
 
     /**
      * github地址
@@ -52,12 +57,8 @@ public class CoderInfoVo {
     private String phone;
 
     /**
-     * 类型 0.admin 1.游客 2.创作者
-     */
-    private Integer type;
-
-    /**
      * 说点什么...
      */
     private String saying;
+
 }

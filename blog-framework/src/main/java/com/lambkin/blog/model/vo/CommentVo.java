@@ -1,4 +1,4 @@
-package com.lambkin.blog.model;
+package com.lambkin.blog.model.vo;
 
 import lombok.Data;
 
@@ -20,29 +20,29 @@ public class CommentVo {
     private String no;
 
     /**
+     * 文章编号
+     */
+    private String articleNo;
+
+    /**
      * 评论者编号
      */
     private String coderNo;
 
     /**
-     * 评论者用户名
-     */
-    private String nickname;
-
-    /**
      * 评论者头像
      */
-    private String avatar;
+    private String coderAvatar;
+
+    /**
+     * 评论者用户名
+     */
+    private String coderName;
 
     /**
      * 根评论编号
      */
     private String rootCommentNo;
-
-    /**
-     * 评论内容
-     */
-    private String content;
 
     /**
      * 所回复的目标评论的用户编号
@@ -52,17 +52,17 @@ public class CommentVo {
     /**
      * 所回复的目标评论的用户名
      */
-    private String toNickname;
+    private String toCoderName;
 
     /**
-     * 回复目标评论编号
+     * 所回复的目标评论的评论编号
      */
     private String toCommentNo;
 
     /**
-     * 评论时间
+     * 评论内容
      */
-    private LocalDateTime createTime;
+    private String content;
 
     /**
      * 点赞数量
@@ -70,17 +70,18 @@ public class CommentVo {
     private Integer likeCount;
 
     /**
+     * 评论时间
+     */
+    private LocalDateTime createTime;
+
+    /**
      * 该评论下的回复数量
      */
-    private Integer replyCount;
+    private Integer childrenCommentTotal;
 
     /**
      * 其下面的子评论
      */
     private List<CommentVo> childrenCommentList;
 
-    /**
-     * 当前评论位于第几页
-     */
-    private Integer pageNo;
 }

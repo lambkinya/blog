@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `friend_link` (
     `introduction` varchar(128) DEFAULT NULL COMMENT '简介',
     `url` varchar(128) DEFAULT NULL COMMENT '链接',
 
-    `status` tinyint(1) DEFAULT 1 COMMENT '是否启用[0:否，1:是]',
+    `status` tinyint(1) DEFAULT 0 COMMENT '是否启用[0:否，1:是]',
 
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',

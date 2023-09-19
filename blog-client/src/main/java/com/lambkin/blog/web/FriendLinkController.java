@@ -1,9 +1,13 @@
 package com.lambkin.blog.web;
 
-import jakarta.annotation.Resource;
-import com.lambkin.blog.domain.FriendLinkEntity;
+import com.lambkin.blog.model.dto.ApplyFriendLinkDto;
+import com.lambkin.blog.model.vo.FriendLinkVo;
 import com.lambkin.blog.service.IFriendLinkService;
+import com.lambkin.blog.ya.YaApiResult;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>友链表--web</p>
@@ -17,6 +21,20 @@ public class FriendLinkController {
 
     @Resource
     private IFriendLinkService friendLinkServiceImpl;
+
+
+    @GetMapping("/list")
+    public YaApiResult<?> queryFriendLinks() {
+        List<FriendLinkVo> result = friendLinkServiceImpl.queryFriendLinks();
+        return YaApiResult.ok(result);
+    }
+
+
+    @PostMapping("/apply")
+    public YaApiResult<?> applyFriendLink(@RequestBody ApplyFriendLinkDto dto) {
+        friendLinkServiceImpl.applyFriendLink(dto);
+        return YaApiResult.ok();
+    }
 
 }
 

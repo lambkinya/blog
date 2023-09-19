@@ -4,6 +4,7 @@ import com.lambkin.blog.model.dto.ArticlePageDto;
 import com.lambkin.blog.model.vo.ArticleDetailVo;
 import com.lambkin.blog.service.IArticleService;
 import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.YaBasePageDto;
 import com.lambkin.blog.ya.YaPageBean;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,13 @@ public class ArticleController {
     @GetMapping("/detail")
     public YaApiResult<?> queryArticleDetailByNo(String no) {
         ArticleDetailVo result = articleServiceImpl.queryArticleDetailByNo(no);
+        return YaApiResult.ok(result);
+    }
+
+
+    @PostMapping("/recommend")
+    public YaApiResult<?> queryRecommendArticlePage(@RequestBody YaBasePageDto dto) {
+        YaPageBean<?> result = articleServiceImpl.queryRecommendArticlePage(dto.getCurrent(), dto.getSize());
         return YaApiResult.ok(result);
     }
 

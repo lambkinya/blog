@@ -13,9 +13,9 @@ public class ArticlePageDto {
 
     private String key;
 
-    private Integer current;
+    private Long current;
 
-    private Integer size;
+    private Long size;
 
     private String categoryNo;
 }
