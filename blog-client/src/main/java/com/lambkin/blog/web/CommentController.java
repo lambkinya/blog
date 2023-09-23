@@ -37,8 +37,8 @@ public class CommentController {
 
 
     @GetMapping("/total")
-    public YaApiResult<?> countCommentTotalByArticleNo(String articleNo) {
-        Integer result = commentServiceImpl.countCommentTotalByArticleNo(articleNo);
+    public YaApiResult<?> countCommentTotalByArticleNoOrType(String articleNo, Integer type) {
+        Integer result = commentServiceImpl.countCommentTotalByArticleNoOrType(articleNo, type);
         return YaApiResult.ok(result);
     }
 

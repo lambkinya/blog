@@ -2,11 +2,10 @@ package com.lambkin.blog.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lambkin.blog.ya.YaBaseBean;
-
-import java.io.Serial;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serial;
 
 /**
  * <p>树洞表--entity</p>
@@ -21,11 +20,6 @@ public class TreeHoleEntity extends YaBaseBean {
 
     @Serial
     private static final long serialVersionUID = -22637883757032270L;
-
-    /**
-     * 自增ID
-     */
-    private Long id;
 
     /**
      * 编号

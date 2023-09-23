@@ -1,5 +1,9 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.model.vo.TreeHoleVo;
+
+import java.util.List;
+
 /**
  * <p>树洞表--service</p>
  *
@@ -8,5 +12,8 @@ package com.lambkin.blog.service;
  */
 public interface ITreeHoleService {
 
+    List<TreeHoleVo> queryAllMessage();
+
+    TreeHoleVo leaveMessage(String message, String avatar);
 }
 

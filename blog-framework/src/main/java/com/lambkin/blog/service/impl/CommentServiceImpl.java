@@ -50,8 +50,8 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public Integer countCommentTotalByArticleNo(String articleNo) {
-        return commentQuery.countCommentTotalByArticleNo(articleNo);
+    public Integer countCommentTotalByArticleNoOrType(String articleNo, Integer type) {
+        return commentQuery.countCommentTotalByArticleNoOrType(articleNo, type);
     }
 
 

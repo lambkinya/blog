@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `no` varchar(32) NOT NULL COMMENT '评论编号',
     `article_no` varchar(32) DEFAULT NULL COMMENT '文章编号',
 
-    `type` tinyint(1) NOT NULL COMMENT '评论类型（1文章 2友链 3树洞）',
+    `type` tinyint(1) NOT NULL COMMENT '评论类型（1文章 2祝福 3树洞）',
 
     `coder_no` varchar(32) NOT NULL COMMENT '评论者编号',
     `root_comment_no` varchar(32) DEFAULT '-1' COMMENT '根评论编号',

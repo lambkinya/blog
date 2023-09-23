@@ -16,6 +16,6 @@ public interface ICommentService {
 
     void publishComment(PublishCommentDto dto);
 
-    Integer countCommentTotalByArticleNo(String articleNo);
+    Integer countCommentTotalByArticleNoOrType(String articleNo, Integer type);
 }
 

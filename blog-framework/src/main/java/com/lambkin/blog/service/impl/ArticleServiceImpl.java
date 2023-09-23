@@ -95,7 +95,7 @@ public class ArticleServiceImpl implements IArticleService {
      * @param <V> com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
      */
     private <V> V buildArticleOtherInfo(ArticleEntity entity, Class<V> clazz) {
-        Integer commentCount = commentQuery.countCommentTotalByArticleNo(entity.getNo());
+        Integer commentCount = commentQuery.countCommentTotalByArticleNoOrType(entity.getNo(), null);
         CategoryEntity category = categoryQuery.queryByNo(entity.getCategoryNo());
         TagEntity tag = tagQuery.queryByNo(entity.getTagNo());
 
