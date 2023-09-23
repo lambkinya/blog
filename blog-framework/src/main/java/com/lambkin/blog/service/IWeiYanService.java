@@ -1,5 +1,7 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.ya.YaPageBean;
+
 /**
  * <p>微言表--service</p>
  *
@@ -8,5 +10,6 @@ package com.lambkin.blog.service;
  */
 public interface IWeiYanService {
 
+    YaPageBean<?> queryPage(Long current, Long size);
 }
 

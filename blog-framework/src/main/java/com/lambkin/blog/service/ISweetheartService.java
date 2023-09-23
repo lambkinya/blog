@@ -1,5 +1,7 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.model.vo.SweetheartVo;
+
 /**
  * <p>恋人表--service</p>
  *
@@ -8,5 +10,6 @@ package com.lambkin.blog.service;
  */
 public interface ISweetheartService {
 
+    SweetheartVo queryAdminSweetheart();
 }
 

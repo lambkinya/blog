@@ -145,8 +145,7 @@ CREATE TABLE `wei_yan` (
                            `content` varchar(1024) NOT NULL COMMENT '内容',
                            `like_count` int NOT NULL DEFAULT 0 COMMENT '点赞数',
 
-                           `type` varchar(32) NOT NULL COMMENT '类型',
-                           `source` int DEFAULT NULL COMMENT '来源标识',
+                           `type` tinyint(1) NOT NULL COMMENT '类型（1朋友圈）',
                            `is_public` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否公开[0:仅自己可见，1:所有人可见]',
 
                            `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -229,8 +228,8 @@ CREATE TABLE `sweetheart` (
                               `man_avatar` varchar(256) NOT NULL COMMENT '男生头像',
                               `woman_avatar` varchar(256) NOT NULL COMMENT '女生头像',
                               `man_pet_name` varchar(32) NOT NULL COMMENT '男生昵称',
-                              `wife_pet_kname` varchar(32) NOT NULL COMMENT '女生昵称',
-                              `loving_time` datetime NOT NULL COMMENT '相恋时间',
+                              `wife_pet_name` varchar(32) NOT NULL COMMENT '女生昵称',
+                              `loving_time` date NOT NULL COMMENT '相恋时间',
                               `countdown_title` varchar(32) DEFAULT NULL COMMENT '倒计时标题',
                               `countdown_time` varchar(32) DEFAULT NULL COMMENT '倒计时时间',
                               `blessing_count` int NOT NULL DEFAULT 0 COMMENT '祝福数量',

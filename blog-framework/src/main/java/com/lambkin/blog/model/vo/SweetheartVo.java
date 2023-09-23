@@ -1,26 +1,15 @@
-package com.lambkin.blog.domain;
+package com.lambkin.blog.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.lambkin.blog.ya.YaBaseBean;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
 import java.time.LocalDate;
 
 /**
- * <p>恋人表--entity</p>
- *
  * @author lambkinya
  * @since 2023-09-17 13:25:27
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("sweetheart")
-public class SweetheartEntity extends YaBaseBean {
-
-    @Serial
-    private static final long serialVersionUID = 259344762864633510L;
+public class SweetheartVo {
 
     /**
      * 编号
@@ -81,11 +70,6 @@ public class SweetheartEntity extends YaBaseBean {
      * 额外信息
      */
     private String otherInfo;
-
-    /**
-     * 是否启用[0:否，1:是]
-     */
-    private Integer status;
 
 }
 

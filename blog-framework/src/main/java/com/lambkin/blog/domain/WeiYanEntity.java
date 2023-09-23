@@ -2,11 +2,10 @@ package com.lambkin.blog.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lambkin.blog.ya.YaBaseBean;
-
-import java.io.Serial;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serial;
 
 /**
  * <p>微言表--entity</p>
@@ -45,12 +44,7 @@ public class WeiYanEntity extends YaBaseBean {
     /**
      * 类型
      */
-    private String type;
-
-    /**
-     * 来源标识
-     */
-    private Integer source;
+    private Integer type;
 
     /**
      * 是否公开[0:仅自己可见，1:所有人可见]

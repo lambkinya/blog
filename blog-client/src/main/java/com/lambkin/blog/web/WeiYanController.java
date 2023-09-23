@@ -1,9 +1,14 @@
 package com.lambkin.blog.web;
 
-import jakarta.annotation.Resource;
-import com.lambkin.blog.domain.WeiYanEntity;
 import com.lambkin.blog.service.IWeiYanService;
-import org.springframework.web.bind.annotation.*;
+import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.YaBasePageDto;
+import com.lambkin.blog.ya.YaPageBean;
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>微言表--web</p>
@@ -12,11 +17,19 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023-09-17 14:13:13
  */
 @RestController
-@RequestMapping("/weiYans")
+@RequestMapping("/weiYan")
 public class WeiYanController {
 
     @Resource
     private IWeiYanService weiYanServiceImpl;
+
+
+    @PostMapping("/list")
+    public YaApiResult<?> queryPage(@RequestBody YaBasePageDto dto) {
+        YaPageBean<?> result = weiYanServiceImpl.queryPage(dto.getCurrent(), dto.getSize());
+        return YaApiResult.ok(result);
+    }
+
 
 }
 
