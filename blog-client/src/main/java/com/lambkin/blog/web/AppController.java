@@ -10,6 +10,7 @@ import com.lambkin.blog.service.query.CoderQuery;
 import com.lambkin.blog.ya.YaApiResult;
 import com.lambkin.blog.ya.YaBeanNoUtil;
 import com.lambkin.blog.ya.YaCommonHelper;
+import com.lambkin.blog.ya.YaIpUtil;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
@@ -18,6 +19,7 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -71,6 +73,13 @@ public class AppController {
         String path = YaCommonHelper.generateFilePath(Objects.requireNonNull(originalFilename));
         String url = uploadImg(file, path);
         return YaApiResult.ok(url);
+    }
+
+
+    @GetMapping("/visitor")
+    public YaApiResult<?> visitorCheckIn(HttpServletRequest request) {
+        String ipAddress = YaIpUtil.obtainClientIpAddress(request);
+        return YaApiResult.ok(ipAddress);
     }
 
 

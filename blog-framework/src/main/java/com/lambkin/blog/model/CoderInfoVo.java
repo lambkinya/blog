@@ -57,6 +57,11 @@ public class CoderInfoVo {
     private String phone;
 
     /**
+     * 类型 0.admin 1.coder 2.游客
+     */
+    private Integer type;
+
+    /**
      * 说点什么...
      */
     private String saying;
