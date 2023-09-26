@@ -1,5 +1,6 @@
 package com.lambkin.blog.web;
 
+import com.lambkin.blog.model.vo.AdminCategoryVo;
 import com.lambkin.blog.model.vo.CategoryDetailVo;
 import com.lambkin.blog.service.ICategoryService;
 import com.lambkin.blog.ya.YaApiResult;
@@ -27,6 +28,13 @@ public class CategoryController {
     @GetMapping("/list")
     public YaApiResult<?> queryCategoryList() {
         List<CategoryDetailVo> result = categoryServiceImpl.queryCategoryList();
+        return YaApiResult.ok(result);
+    }
+
+
+    @GetMapping("/list-admin")
+    public YaApiResult<?> queryCategoryListAdmin() {
+        List<AdminCategoryVo> result = categoryServiceImpl.queryCategoryDetailListAdmin();
         return YaApiResult.ok(result);
     }
 

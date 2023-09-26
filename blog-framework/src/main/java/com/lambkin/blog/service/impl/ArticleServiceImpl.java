@@ -53,8 +53,6 @@ public class ArticleServiceImpl implements IArticleService {
         return YaPageBean.build(pageInfo, articleList);
     }
 
-
-
     @Override
     public ArticleDetailVo queryArticleDetailByNo(String no) {
 
@@ -86,13 +84,40 @@ public class ArticleServiceImpl implements IArticleService {
         return YaPageBean.build(pageInfo, recommendArticleVos);
     }
 
+    @Override
+    public YaPageBean<?> queryArticleByConditionPageAdmin(ArticlePageDto dto) {
+
+        IPage<ArticleEntity> pageInfo = articleQuery.queryArticleByConditionPage(
+                dto.getKey(), dto.getCategoryNo(), false, dto.getCurrent(), dto.getSize()
+        );
+
+        List<AdminArticlePageVo> articleList = pageInfo.getRecords().stream().map(entity -> {
+            AdminArticlePageVo vo = YaBeanCopyUtil.copyBean(entity, AdminArticlePageVo.class);
+
+            CoderEntity coderEntity = coderQuery.queryByCoderNo(entity.getCoderNo());
+            CategoryEntity categoryEntity = categoryQuery.queryByNo(entity.getCategoryNo());
+            TagEntity tagEntity = tagQuery.queryByNo(entity.getTagNo());
+            Integer commentCount = commentQuery.countCommentTotalByArticleNoOrType(entity.getNo(), null);
+
+            vo.setCoderName(coderEntity.getUsername());
+            vo.setCategoryName(categoryEntity.getName());
+            vo.setTagName(tagEntity.getName());
+            vo.setCommentCount(commentCount);
+
+            return vo;
+        }).toList();
+
+        return YaPageBean.build(pageInfo, articleList);
+    }
+
 
     /**
      * <p>填充该文章关联的分类和标签信息</p>
+     *
      * @param entity com.lambkin.blog.domain.ArticleEntity
-     * @param clazz com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
+     * @param clazz  com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
+     * @param <V>    com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
      * @return com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
-     * @param <V> com.lambkin.blog.model.vo.ArticleDetailVo | com.lambkin.blog.model.vo.ArticlePageVo
      */
     private <V> V buildArticleOtherInfo(ArticleEntity entity, Class<V> clazz) {
         Integer commentCount = commentQuery.countCommentTotalByArticleNoOrType(entity.getNo(), null);

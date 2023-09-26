@@ -1,6 +1,8 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.model.vo.AdminCategoryVo;
 import com.lambkin.blog.model.vo.CategoryDetailVo;
+import com.lambkin.blog.model.vo.CategoryVo;
 
 import java.util.List;
 
@@ -13,5 +15,9 @@ import java.util.List;
 public interface ICategoryService {
 
     List<CategoryDetailVo> queryCategoryList();
+
+    List<CategoryVo> queryCategoryListAdmin();
+
+    List<AdminCategoryVo> queryCategoryDetailListAdmin();
 }
 

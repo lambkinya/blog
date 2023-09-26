@@ -18,4 +18,8 @@ public class ArticlePageDto {
     private Long size;
 
     private String categoryNo;
+
+    private String tagNo;
+
+    private Integer recommendStatus;
 }

@@ -1,5 +1,6 @@
 package com.lambkin.blog.web;
 
+import com.lambkin.blog.model.dto.AdminCommentPageDto;
 import com.lambkin.blog.model.dto.CommentPageDto;
 import com.lambkin.blog.model.dto.PublishCommentDto;
 import com.lambkin.blog.service.ICommentService;
@@ -25,6 +26,13 @@ public class CommentController {
     @PostMapping("/list")
     public YaApiResult<?> queryCommentByConditionPage(@RequestBody CommentPageDto dto) {
         YaPageBean<?> result = commentServiceImpl.queryCommentByConditionPage(dto);
+        return YaApiResult.ok(result);
+    }
+
+
+    @PostMapping("/list-admin")
+    public YaApiResult<?> queryCommentByConditionPageAdmin(@RequestBody AdminCommentPageDto dto) {
+        YaPageBean<?> result = commentServiceImpl.queryCommentByConditionPageAdmin(dto);
         return YaApiResult.ok(result);
     }
 

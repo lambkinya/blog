@@ -3,8 +3,11 @@ package com.lambkin.blog.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.domain.CommentEntity;
+import com.lambkin.blog.enums.CommentTypeEnum;
+import com.lambkin.blog.model.dto.AdminCommentPageDto;
 import com.lambkin.blog.model.dto.CommentPageDto;
 import com.lambkin.blog.model.dto.PublishCommentDto;
+import com.lambkin.blog.model.vo.AdminCommentPageVo;
 import com.lambkin.blog.model.vo.CommentVo;
 import com.lambkin.blog.service.ICommentService;
 import com.lambkin.blog.service.query.CoderQuery;
@@ -13,6 +16,7 @@ import com.lambkin.blog.ya.YaBeanCopyUtil;
 import com.lambkin.blog.ya.YaPageBean;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -52,6 +56,26 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public Integer countCommentTotalByArticleNoOrType(String articleNo, Integer type) {
         return commentQuery.countCommentTotalByArticleNoOrType(articleNo, type);
+    }
+
+    @Override
+    public YaPageBean<?> queryCommentByConditionPageAdmin(AdminCommentPageDto dto) {
+        IPage<CommentEntity> pageInfo = commentQuery.queryAllCommentAdmin(
+                dto.getSourceNo(), dto.getCoderNo(),
+                StringUtils.hasText(dto.getType()) ? CommentTypeEnum.descOf(dto.getType()).getCode() : null
+                , dto.getCurrent(), dto.getSize()
+        );
+
+        List<AdminCommentPageVo> commentPageVos = pageInfo.getRecords().stream().map(entity -> {
+            AdminCommentPageVo vo = YaBeanCopyUtil.copyBean(entity, AdminCommentPageVo.class);
+
+            vo.setSourceNo(entity.getArticleNo());
+            vo.setType(CommentTypeEnum.codeOf(entity.getType()).getDesc());
+
+            return vo;
+        }).toList();
+
+        return YaPageBean.build(pageInfo, commentPageVos);
     }
 
 

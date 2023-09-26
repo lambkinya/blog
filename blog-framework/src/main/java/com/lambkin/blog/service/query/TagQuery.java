@@ -41,4 +41,8 @@ public class TagQuery {
                 new LambdaQueryWrapper<TagEntity>().eq(TagEntity::getCategoryNo, categoryNo)
         );
     }
+
+    public List<TagEntity> queryList() {
+        return tagMapper.selectList(null);
+    }
 }

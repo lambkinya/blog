@@ -30,6 +30,13 @@ public class ArticleController {
     }
 
 
+    @PostMapping("/list-admin")
+    public YaApiResult<?> queryArticlePage(@RequestBody ArticlePageDto dto) {
+        YaPageBean<?> result = articleServiceImpl.queryArticleByConditionPageAdmin(dto);
+        return YaApiResult.ok(result);
+    }
+
+
     @GetMapping("/detail")
     public YaApiResult<?> queryArticleDetailByNo(String no) {
         ArticleDetailVo result = articleServiceImpl.queryArticleDetailByNo(no);

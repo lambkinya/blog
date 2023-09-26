@@ -1,5 +1,9 @@
 package com.lambkin.blog.service;
 
+import com.lambkin.blog.model.vo.TagVo;
+
+import java.util.List;
+
 /**
  * <p>标签表--service</p>
  *
@@ -8,5 +12,6 @@ package com.lambkin.blog.service;
  */
 public interface ITagService {
 
+    List<TagVo> queryTagListAdmin();
 }
 

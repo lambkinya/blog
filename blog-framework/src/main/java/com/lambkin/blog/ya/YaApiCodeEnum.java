@@ -7,7 +7,7 @@ package com.lambkin.blog.ya;
 public enum YaApiCodeEnum {
 
     /**
-     *
+     * 错误码枚举
      */
     SUCCESS(200,"操作成功"),
     NEED_LOGIN(401,"需要登录后操作"),

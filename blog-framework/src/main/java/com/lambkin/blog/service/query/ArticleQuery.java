@@ -78,7 +78,7 @@ public class ArticleQuery {
 
     public IPage<ArticleEntity> queryArticleByConditionPage(String key, String categoryNo, Boolean openRecommend, Long current, Long size) {
         return articleMapper.selectPage(
-                new Page<ArticleEntity>(current, size),
+                new Page<>(current, size),
                 new LambdaQueryWrapper<ArticleEntity>()
                         .like(StringUtils.hasText(key), ArticleEntity::getTitle, key)
                         .eq(StringUtils.hasText(categoryNo), ArticleEntity::getCategoryNo, categoryNo)

@@ -5,7 +5,12 @@ import com.lambkin.blog.config.OssConfig;
 import com.lambkin.blog.domain.CoderEntity;
 import com.lambkin.blog.model.BlogInfoVo;
 import com.lambkin.blog.model.LoginInfoVo;
+import com.lambkin.blog.model.vo.AdminCategoryTagVo;
+import com.lambkin.blog.model.vo.CategoryVo;
+import com.lambkin.blog.model.vo.TagVo;
 import com.lambkin.blog.service.IAuthService;
+import com.lambkin.blog.service.ICategoryService;
+import com.lambkin.blog.service.ITagService;
 import com.lambkin.blog.service.query.CoderQuery;
 import com.lambkin.blog.ya.YaApiResult;
 import com.lambkin.blog.ya.YaBeanNoUtil;
@@ -27,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,16 +43,25 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping
-public class AppController {
+public class ClientController {
 
     @Resource
     private IAuthService authServiceImpl;
+
     @Resource
     private CoderQuery coderQuery;
+
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Resource
     private OssConfig ossConfig;
+
+    @Resource
+    private ICategoryService categoryServiceImpl;
+
+    @Resource
+    private ITagService tagServiceImpl;
 
 
     @PostMapping("/register")
@@ -80,6 +95,15 @@ public class AppController {
     public YaApiResult<?> visitorCheckIn(HttpServletRequest request) {
         String ipAddress = YaIpUtil.obtainClientIpAddress(request);
         return YaApiResult.ok(ipAddress);
+    }
+
+
+    @GetMapping("/category-tag-list-admin")
+    public YaApiResult<?> getCategoryAndTagList() {
+        List<CategoryVo> categoryVoList = categoryServiceImpl.queryCategoryListAdmin();
+        List<TagVo> tagVoList = tagServiceImpl.queryTagListAdmin();
+
+        return YaApiResult.ok(new AdminCategoryTagVo(categoryVoList, tagVoList));
     }
 
 

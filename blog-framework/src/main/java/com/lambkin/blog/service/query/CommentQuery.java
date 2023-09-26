@@ -61,4 +61,15 @@ public class CommentQuery {
                 new LambdaQueryWrapper<CommentEntity>().eq(CommentEntity::getToCommentNo, no)
         ).intValue();
     }
+
+    public IPage<CommentEntity> queryAllCommentAdmin(String sourceNo, String coderNo, Integer type, Long current, Long size) {
+        return commentMapper.selectPage(
+                new Page<>(current, size),
+                new LambdaQueryWrapper<CommentEntity>()
+                        .eq(StringUtils.hasText(sourceNo), CommentEntity::getArticleNo, sourceNo)
+                        .eq(StringUtils.hasText(coderNo), CommentEntity::getCoderNo, coderNo)
+                        .eq(type != null, CommentEntity::getType, type)
+                        .orderByDesc(CommentEntity::getCreateTime)
+        );
+    }
 }
