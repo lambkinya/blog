@@ -1,6 +1,6 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.TreeHoleEntity;
+import com.lambkin.blog.model.domain.TreeHoleEntity;
 import com.lambkin.blog.model.vo.TreeHoleVo;
 import com.lambkin.blog.service.ITreeHoleService;
 import com.lambkin.blog.service.query.TreeHoleQuery;

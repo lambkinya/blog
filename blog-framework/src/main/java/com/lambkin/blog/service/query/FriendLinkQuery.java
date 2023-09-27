@@ -2,7 +2,7 @@ package com.lambkin.blog.service.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lambkin.blog.dao.FriendLinkMapper;
-import com.lambkin.blog.domain.FriendLinkEntity;
+import com.lambkin.blog.model.domain.FriendLinkEntity;
 import com.lambkin.blog.ya.YaBeanNoUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;

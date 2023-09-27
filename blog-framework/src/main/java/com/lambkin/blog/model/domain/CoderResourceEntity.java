@@ -1,4 +1,4 @@
-package com.lambkin.blog.domain;
+package com.lambkin.blog.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lambkin.blog.ya.YaBaseBean;

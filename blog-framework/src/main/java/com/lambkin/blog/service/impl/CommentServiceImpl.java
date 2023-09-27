@@ -1,8 +1,8 @@
 package com.lambkin.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lambkin.blog.domain.CoderEntity;
-import com.lambkin.blog.domain.CommentEntity;
+import com.lambkin.blog.model.domain.CoderEntity;
+import com.lambkin.blog.model.domain.CommentEntity;
 import com.lambkin.blog.enums.CommentTypeEnum;
 import com.lambkin.blog.model.dto.AdminCommentPageDto;
 import com.lambkin.blog.model.dto.CommentPageDto;

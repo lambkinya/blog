@@ -1,7 +1,7 @@
 package com.lambkin.blog.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lambkin.blog.domain.WeiYanEntity;
+import com.lambkin.blog.model.domain.WeiYanEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

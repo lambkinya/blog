@@ -1,7 +1,7 @@
 package com.lambkin.blog.service.query;
 
 import com.lambkin.blog.dao.SweetheartMapper;
-import com.lambkin.blog.domain.SweetheartEntity;
+import com.lambkin.blog.model.domain.SweetheartEntity;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.lambkin.blog.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lambkin.blog.domain.CoderResourceEntity;
+import com.lambkin.blog.model.domain.CoderResourceEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

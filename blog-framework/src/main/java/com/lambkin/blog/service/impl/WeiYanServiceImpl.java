@@ -1,7 +1,7 @@
 package com.lambkin.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lambkin.blog.domain.WeiYanEntity;
+import com.lambkin.blog.model.domain.WeiYanEntity;
 import com.lambkin.blog.model.vo.WeiYanPageVo;
 import com.lambkin.blog.service.IWeiYanService;
 import com.lambkin.blog.service.query.WeiYanQuery;

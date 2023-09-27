@@ -2,7 +2,7 @@ package com.lambkin.blog.service.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lambkin.blog.dao.TagMapper;
-import com.lambkin.blog.domain.TagEntity;
+import com.lambkin.blog.model.domain.TagEntity;
 import com.lambkin.blog.model.vo.TagVo;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
 import jakarta.annotation.Resource;

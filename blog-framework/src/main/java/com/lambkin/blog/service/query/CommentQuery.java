@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lambkin.blog.dao.CommentMapper;
-import com.lambkin.blog.domain.CommentEntity;
+import com.lambkin.blog.model.domain.CommentEntity;
 import com.lambkin.blog.ya.YaBeanNoUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;

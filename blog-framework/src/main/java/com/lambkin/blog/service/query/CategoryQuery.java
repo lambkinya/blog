@@ -2,7 +2,7 @@ package com.lambkin.blog.service.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lambkin.blog.dao.CategoryMapper;
-import com.lambkin.blog.domain.CategoryEntity;
+import com.lambkin.blog.model.domain.CategoryEntity;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 

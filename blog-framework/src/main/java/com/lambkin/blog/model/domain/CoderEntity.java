@@ -1,12 +1,11 @@
-package com.lambkin.blog.domain;
+package com.lambkin.blog.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lambkin.blog.ya.YaBaseBean;
-
-import java.io.Serial;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serial;
 
 /**
  * <p>Coder--entity</p>

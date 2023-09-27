@@ -1,6 +1,6 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.TagEntity;
+import com.lambkin.blog.model.domain.TagEntity;
 import com.lambkin.blog.model.vo.TagVo;
 import com.lambkin.blog.service.ITagService;
 import com.lambkin.blog.service.query.TagQuery;

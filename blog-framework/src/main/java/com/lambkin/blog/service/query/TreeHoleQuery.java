@@ -1,7 +1,7 @@
 package com.lambkin.blog.service.query;
 
 import com.lambkin.blog.dao.TreeHoleMapper;
-import com.lambkin.blog.domain.TreeHoleEntity;
+import com.lambkin.blog.model.domain.TreeHoleEntity;
 import com.lambkin.blog.ya.YaBeanNoUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;

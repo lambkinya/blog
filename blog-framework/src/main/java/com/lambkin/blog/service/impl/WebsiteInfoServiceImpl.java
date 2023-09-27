@@ -1,6 +1,6 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.WebsiteInfoEntity;
+import com.lambkin.blog.model.domain.WebsiteInfoEntity;
 import com.lambkin.blog.model.vo.WebsiteInfoVo;
 import com.lambkin.blog.service.IWebsiteInfoService;
 import com.lambkin.blog.service.query.WebsiteInfoQuery;

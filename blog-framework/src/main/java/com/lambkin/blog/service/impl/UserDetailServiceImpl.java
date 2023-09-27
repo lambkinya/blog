@@ -1,6 +1,6 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.CoderEntity;
+import com.lambkin.blog.model.domain.CoderEntity;
 import com.lambkin.blog.model.User;
 import com.lambkin.blog.service.query.CoderQuery;
 import jakarta.annotation.Resource;

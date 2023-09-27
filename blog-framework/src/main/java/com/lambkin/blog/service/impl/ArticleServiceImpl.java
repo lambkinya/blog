@@ -1,10 +1,10 @@
 package com.lambkin.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lambkin.blog.domain.ArticleEntity;
-import com.lambkin.blog.domain.CategoryEntity;
-import com.lambkin.blog.domain.CoderEntity;
-import com.lambkin.blog.domain.TagEntity;
+import com.lambkin.blog.model.domain.ArticleEntity;
+import com.lambkin.blog.model.domain.CategoryEntity;
+import com.lambkin.blog.model.domain.CoderEntity;
+import com.lambkin.blog.model.domain.TagEntity;
 import com.lambkin.blog.model.dto.ArticlePageDto;
 import com.lambkin.blog.model.vo.*;
 import com.lambkin.blog.service.IArticleService;

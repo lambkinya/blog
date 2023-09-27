@@ -1,4 +1,4 @@
-package com.lambkin.blog.domain;
+package com.lambkin.blog.model.domain;
 
 import java.util.Date;
 

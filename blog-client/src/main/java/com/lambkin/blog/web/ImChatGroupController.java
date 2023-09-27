@@ -1,7 +1,6 @@
 package com.lambkin.blog.web;
 
 import jakarta.annotation.Resource;
-import com.lambkin.blog.domain.ImChatGroupEntity;
 import com.lambkin.blog.service.IImChatGroupService;
 import org.springframework.web.bind.annotation.*;
 

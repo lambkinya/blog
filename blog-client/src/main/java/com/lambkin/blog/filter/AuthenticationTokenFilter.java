@@ -1,6 +1,6 @@
 package com.lambkin.blog.filter;
 
-import com.lambkin.blog.domain.CoderEntity;
+import com.lambkin.blog.model.domain.CoderEntity;
 import com.lambkin.blog.model.User;
 import com.lambkin.blog.service.ICoderService;
 import com.lambkin.blog.ya.YaJwtUtil;

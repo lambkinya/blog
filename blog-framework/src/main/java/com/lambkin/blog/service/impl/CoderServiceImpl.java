@@ -1,11 +1,15 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.CoderEntity;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lambkin.blog.model.domain.CoderEntity;
 import com.lambkin.blog.model.CoderInfoVo;
+import com.lambkin.blog.model.dto.AdminCoderPageDto;
+import com.lambkin.blog.model.vo.AdminCoderPageVo;
 import com.lambkin.blog.service.ICoderService;
 import com.lambkin.blog.service.query.CoderQuery;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
 import com.lambkin.blog.ya.YaJwtUtil;
+import com.lambkin.blog.ya.YaPageBean;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -44,6 +48,16 @@ public class CoderServiceImpl implements ICoderService {
         CoderEntity coderEntity = coderQuery.queryByCoderNo(coderNo);
 
         return YaBeanCopyUtil.copyBean(coderEntity, CoderInfoVo.class);
+    }
+
+    @Override
+    public YaPageBean<?> queryCoderPageAdmin(AdminCoderPageDto dto) {
+        CoderEntity param = YaBeanCopyUtil.copyBean(dto, CoderEntity.class);
+        param.setUsername(dto.getSearchKey());
+        param.setPhone(dto.getSearchKey());
+        IPage<CoderEntity> pageInfo = coderQuery.queryCoderPageAdmin(param, dto.getCurrent(), dto.getSize());
+
+        return YaPageBean.build(pageInfo, AdminCoderPageVo.class);
     }
 }
 

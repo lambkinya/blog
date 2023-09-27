@@ -1,4 +1,4 @@
-package com.lambkin.blog.domain;
+package com.lambkin.blog.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lambkin.blog.ya.YaBaseBean;
@@ -9,18 +9,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>好友表--entity</p>
+ * <p>历史信息--entity</p>
  *
  * @author lambkinya
  * @since 2023-09-17 13:25:25
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("im_chat_coder_friend")
-public class ImChatCoderFriendEntity extends YaBaseBean {
+@TableName("history_info")
+public class HistoryInfoEntity extends YaBaseBean {
 
     @Serial
-    private static final long serialVersionUID = 912039144500258783L;
+    private static final long serialVersionUID = 318940467199767593L;
 
     /**
      * 编号
@@ -33,19 +33,24 @@ public class ImChatCoderFriendEntity extends YaBaseBean {
     private String coderNo;
 
     /**
-     * 好友编号
+     * ip
      */
-    private String friendNo;
+    private String ip;
 
     /**
-     * 好友状态[0:未审核，1:审核通过]
+     * 国家
      */
-    private Integer friendStatus;
+    private String nation;
 
     /**
-     * 备注
+     * 省份
      */
-    private String remark;
+    private String province;
+
+    /**
+     * 城市
+     */
+    private String city;
 
 }
 

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lambkin.blog.dao.ArticleMapper;
 import com.lambkin.blog.dao.CategoryMapper;
-import com.lambkin.blog.domain.ArticleEntity;
+import com.lambkin.blog.model.domain.ArticleEntity;
 import com.lambkin.blog.ya.YaPageBean;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;

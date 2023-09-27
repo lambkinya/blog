@@ -1,6 +1,6 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.FriendLinkEntity;
+import com.lambkin.blog.model.domain.FriendLinkEntity;
 import com.lambkin.blog.model.dto.ApplyFriendLinkDto;
 import com.lambkin.blog.model.vo.FriendLinkVo;
 import com.lambkin.blog.service.IFriendLinkService;

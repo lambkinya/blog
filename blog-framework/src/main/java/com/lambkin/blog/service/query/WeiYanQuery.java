@@ -3,7 +3,7 @@ package com.lambkin.blog.service.query;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lambkin.blog.dao.WeiYanMapper;
-import com.lambkin.blog.domain.WeiYanEntity;
+import com.lambkin.blog.model.domain.WeiYanEntity;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 

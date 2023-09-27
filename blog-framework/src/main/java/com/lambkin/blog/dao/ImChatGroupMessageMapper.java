@@ -1,7 +1,7 @@
 package com.lambkin.blog.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lambkin.blog.domain.ImChatGroupMessageEntity;
+import com.lambkin.blog.model.domain.ImChatGroupMessageEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

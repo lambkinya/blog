@@ -1,6 +1,6 @@
 package com.lambkin.blog.service.impl;
 
-import com.lambkin.blog.domain.SweetheartEntity;
+import com.lambkin.blog.model.domain.SweetheartEntity;
 import com.lambkin.blog.model.vo.SweetheartVo;
 import com.lambkin.blog.service.ISweetheartService;
 import com.lambkin.blog.service.query.SweetheartQuery;
