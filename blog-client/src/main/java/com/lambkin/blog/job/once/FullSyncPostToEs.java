@@ -8,7 +8,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author lambkinya
  * @since 2023-10-12 18:03:40
  */
-@Component
+//@Component
 @Slf4j
 public class FullSyncPostToEs implements CommandLineRunner {
 

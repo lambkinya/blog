@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.lambkin.blog.dao")
-@ComponentScan({"com.lambkin.blog.config","com.lambkin.blog.web","com.lambkin.blog.service.impl", "com.lambkin.blog.service.query", "com.lambkin.blog.filter", "com.lambkin.blog.support", "com.lambkin.blog.job"})
+@ComponentScan({"com.lambkin.blog.config","com.lambkin.blog.web","com.lambkin.blog.service.impl", "com.lambkin.blog.service.query", "com.lambkin.blog.filter", "com.lambkin.blog.support", "com.lambkin.blog.job", "com.lambkin.blog.mail"})
 public class ClientApplication {
 
     public static void main(String[] args) {
