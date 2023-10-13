@@ -9,6 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.core.convert.converter.Converter;
@@ -25,6 +26,7 @@ import java.time.format.DateTimeFormatter;
  * @since 2023-09-10 19:32:53
  */
 @JsonComponent
+@Configuration
 public class JacksonCustomizerConfig {
 
     private static final String localDateTimePattern = "yyyy-MM-dd HH:mm:ss";

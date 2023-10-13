@@ -2,7 +2,8 @@ package com.lambkin.blog.web;
 
 import com.lambkin.blog.model.vo.WebsiteInfoVo;
 import com.lambkin.blog.service.IWebsiteInfoService;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.service.query.WebsiteInfoQuery;
+import com.lambkin.blog.ya.ApiResponse;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,19 @@ public class WebsiteInfoController {
 
     @Resource
     private IWebsiteInfoService websiteInfoServiceImpl;
+    @Resource
+    private WebsiteInfoQuery websiteInfoQuery;
 
 
     @GetMapping("/getWebsiteInfo")
-    private YaApiResult<?> queryWebsiteInfo() {
+    private ApiResponse<?> queryWebsiteInfo() {
         WebsiteInfoVo result = websiteInfoServiceImpl.queryWebsiteInfo();
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
+    }
+
+    @GetMapping("/wai-fu-json")
+    private String queryWaiFuJson() {
+        return websiteInfoQuery.queryWaiFuJson();
     }
 
 }

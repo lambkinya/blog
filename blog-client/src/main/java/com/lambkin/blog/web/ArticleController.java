@@ -1,11 +1,12 @@
 package com.lambkin.blog.web;
 
+import com.lambkin.blog.model.SearchForEsRequest;
 import com.lambkin.blog.model.dto.ArticlePageDto;
 import com.lambkin.blog.model.vo.ArticleDetailVo;
 import com.lambkin.blog.service.IArticleService;
-import com.lambkin.blog.ya.YaApiResult;
-import com.lambkin.blog.ya.YaBasePageDto;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.ApiResponse;
+import com.lambkin.blog.ya.PageRequest;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,31 +24,48 @@ public class ArticleController {
     private IArticleService articleServiceImpl;
 
 
+    @PostMapping("/search-es")
+    public YaPage<?> searchForEsRpc(@RequestBody SearchForEsRequest requestData) {
+        String searchText = requestData.getSearchText();
+        long pageNum = requestData.getPageNum();
+        long pageSize = requestData.getPageSize();
+        return articleServiceImpl.doSearch(searchText, pageNum, pageSize);
+    }
+
+    @PostMapping("/list-es")
+    public ApiResponse<?> searchForEs(@RequestBody SearchForEsRequest requestData) {
+        String searchText = requestData.getSearchText();
+        long pageNum = requestData.getPageNum();
+        long pageSize = requestData.getPageSize();
+        YaPage<?> result = articleServiceImpl.doSearch(searchText, pageNum, pageSize);
+        return ApiResponse.ok(result);
+    }
+
     @PostMapping("/list")
-    public YaApiResult<?> queryArticleByConditionPage(@RequestBody ArticlePageDto dto) {
-        YaPageBean<?> result = articleServiceImpl.queryArticleByConditionPage(dto);
-        return YaApiResult.ok(result);
+    public ApiResponse<?> queryArticleByConditionPage(@RequestBody ArticlePageDto dto) {
+        YaPage<?> result = articleServiceImpl.queryArticleByConditionPage(dto);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/list-admin")
-    public YaApiResult<?> queryArticlePage(@RequestBody ArticlePageDto dto) {
-        YaPageBean<?> result = articleServiceImpl.queryArticleByConditionPageAdmin(dto);
-        return YaApiResult.ok(result);
+    public ApiResponse<?> queryArticlePage(@RequestBody ArticlePageDto dto) {
+        YaPage<?> result = articleServiceImpl.queryArticleByConditionPageAdmin(dto);
+        return ApiResponse.ok(result);
     }
 
 
     @GetMapping("/detail")
-    public YaApiResult<?> queryArticleDetailByNo(String no) {
+    public ApiResponse<?> queryArticleDetailByNo(String no) {
         ArticleDetailVo result = articleServiceImpl.queryArticleDetailByNo(no);
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/recommend")
-    public YaApiResult<?> queryRecommendArticlePage(@RequestBody YaBasePageDto dto) {
-        YaPageBean<?> result = articleServiceImpl.queryRecommendArticlePage(dto.getCurrent(), dto.getSize());
-        return YaApiResult.ok(result);
+    public ApiResponse<?> queryRecommendArticlePage(@RequestBody PageRequest dto) {
+        YaPage<?> result = articleServiceImpl.queryRecommendArticlePage(dto.getCurrent(), dto.getSize());
+        return ApiResponse.ok(result);
     }
 
 }

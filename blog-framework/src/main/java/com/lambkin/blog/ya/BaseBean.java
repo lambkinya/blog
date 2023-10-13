@@ -1,8 +1,7 @@
 package com.lambkin.blog.ya;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  * @since 2023-09-10 11:26:13
  */
 @Data
-public class YaBaseBean implements Serializable {
+public class BaseBean implements Serializable {
 
     /**
      * 自增ID
@@ -27,14 +26,14 @@ public class YaBaseBean implements Serializable {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     /**

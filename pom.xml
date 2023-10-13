@@ -18,7 +18,6 @@
     <description>博客--父工程</description>
     <modules>
         <module>blog-framework</module>
-        <module>blog-admin</module>
         <module>blog-client</module>
     </modules>
 
@@ -51,7 +50,6 @@
         <commons-lang3.version>3.10</commons-lang3.version>
         <okhttp.version>4.8.1</okhttp.version>
         <swagger-spring-boot-starter.version>1.9.0.RELEASE</swagger-spring-boot-starter.version>
-        <elasticsearch.version>7.12.1</elasticsearch.version>
     </properties>
 
 

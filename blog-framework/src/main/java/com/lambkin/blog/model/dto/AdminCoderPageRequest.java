@@ -1,6 +1,6 @@
 package com.lambkin.blog.model.dto;
 
-import com.lambkin.blog.ya.YaBasePageDto;
+import com.lambkin.blog.ya.PageRequest;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2023-09-27 10:46:45
  */
 @Data
-public class AdminCoderPageDto extends YaBasePageDto {
+public class AdminCoderPageRequest extends PageRequest {
 
     /**
      * 类型 0.admin 1.coder 2.游客

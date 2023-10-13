@@ -1,7 +1,7 @@
 package com.lambkin.blog.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.lambkin.blog.ya.YaBaseBean;
+import com.lambkin.blog.ya.BaseBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +16,7 @@ import java.io.Serial;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("article")
-public class ArticleEntity extends YaBaseBean {
+public class ArticleEntity extends BaseBean {
 
     @Serial
     private static final long serialVersionUID = -72130369177915062L;

@@ -3,7 +3,7 @@ package com.lambkin.blog.web;
 import com.lambkin.blog.model.dto.LeaveMessageDto;
 import com.lambkin.blog.model.vo.TreeHoleVo;
 import com.lambkin.blog.service.ITreeHoleService;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.ApiResponse;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +24,16 @@ public class TreeHoleController {
 
 
     @GetMapping("/all")
-    private YaApiResult<?> queryAllMessage() {
+    private ApiResponse<?> queryAllMessage() {
         List<TreeHoleVo> result = treeHoleServiceImpl.queryAllMessage();
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/leaveMessage")
-    private YaApiResult<?> leaveMessage(@RequestBody LeaveMessageDto dto) {
+    private ApiResponse<?> leaveMessage(@RequestBody LeaveMessageDto dto) {
         TreeHoleVo result = treeHoleServiceImpl.leaveMessage(dto.getMessage(), dto.getAvatar());
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 }

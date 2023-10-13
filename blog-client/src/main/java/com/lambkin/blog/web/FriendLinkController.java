@@ -3,7 +3,7 @@ package com.lambkin.blog.web;
 import com.lambkin.blog.model.dto.ApplyFriendLinkDto;
 import com.lambkin.blog.model.vo.FriendLinkVo;
 import com.lambkin.blog.service.IFriendLinkService;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.ApiResponse;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +24,16 @@ public class FriendLinkController {
 
 
     @GetMapping("/list")
-    public YaApiResult<?> queryFriendLinks() {
+    public ApiResponse<?> queryFriendLinks() {
         List<FriendLinkVo> result = friendLinkServiceImpl.queryFriendLinks();
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/apply")
-    public YaApiResult<?> applyFriendLink(@RequestBody ApplyFriendLinkDto dto) {
+    public ApiResponse<?> applyFriendLink(@RequestBody ApplyFriendLinkDto dto) {
         friendLinkServiceImpl.applyFriendLink(dto);
-        return YaApiResult.ok();
+        return ApiResponse.ok();
     }
 
 }

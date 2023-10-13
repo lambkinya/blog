@@ -1,6 +1,6 @@
 package com.lambkin.blog.service;
 
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.YaPage;
 
 /**
  * <p>微言表--service</p>
@@ -10,6 +10,8 @@ import com.lambkin.blog.ya.YaPageBean;
  */
 public interface IWeiYanService {
 
-    YaPageBean<?> queryPage(Long current, Long size);
+    YaPage<?> queryPage(String source, Integer type, Long current, Long size);
+
+    void publish(String coderNo, String content, Boolean isPublic, Integer type);
 }
 

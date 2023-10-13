@@ -2,8 +2,8 @@ package com.lambkin.blog.support;
 
 import com.alibaba.fastjson.JSON;
 import com.lambkin.blog.model.User;
-import com.lambkin.blog.ya.YaApiCodeEnum;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.AppErrorCode;
+import com.lambkin.blog.ya.ApiResponse;
 import com.lambkin.blog.ya.YaJwtUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,7 +38,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler, Auth
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.getWriter().write(JSON.toJSONString(YaApiResult.error(YaApiCodeEnum.LOGIN_ERROR)));
+        response.getWriter().write(JSON.toJSONString(ApiResponse.error(AppErrorCode.SYSTEM_ERROR)));
     }
 
     /**
@@ -56,7 +56,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler, Auth
         response.setStatus(HttpStatus.OK.value());
         // SecurityContext在设置Authentication的时候并不会自动写入Session，读的时候却会根据Session判断，所以需要手动写入一次，否则下一次刷新时SecurityContext是新创建的实例。
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        response.getWriter().write(JSON.toJSONString(YaApiResult.ok(token)));
+        response.getWriter().write(JSON.toJSONString(ApiResponse.ok(token)));
     }
 
 }

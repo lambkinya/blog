@@ -1,6 +1,6 @@
 package com.lambkin.blog.model.dto;
 
-import com.lambkin.blog.ya.YaBasePageDto;
+import com.lambkin.blog.ya.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CommentPageDto extends YaBasePageDto {
+public class CommentPageRequest extends PageRequest {
 
     private Integer type;
 

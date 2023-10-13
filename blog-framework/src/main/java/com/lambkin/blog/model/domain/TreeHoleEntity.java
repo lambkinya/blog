@@ -1,7 +1,7 @@
 package com.lambkin.blog.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.lambkin.blog.ya.YaBaseBean;
+import com.lambkin.blog.ya.BaseBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +16,7 @@ import java.io.Serial;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("tree_hole")
-public class TreeHoleEntity extends YaBaseBean {
+public class TreeHoleEntity extends BaseBean {
 
     @Serial
     private static final long serialVersionUID = -22637883757032270L;

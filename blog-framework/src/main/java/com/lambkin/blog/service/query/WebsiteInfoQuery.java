@@ -25,4 +25,11 @@ public class WebsiteInfoQuery {
                         .eq(WebsiteInfoEntity::getName, "Lambkin")
         );
     }
+
+    public String queryWaiFuJson() {
+        return websiteInfoMapper.selectOne(
+                new LambdaQueryWrapper<WebsiteInfoEntity>()
+                        .eq(WebsiteInfoEntity::getName, "Lambkin")
+        ).getWaifuJson();
+    }
 }

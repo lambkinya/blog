@@ -1,10 +1,10 @@
 package com.lambkin.blog.web;
 
 import com.lambkin.blog.model.CoderInfoVo;
-import com.lambkin.blog.model.dto.AdminCoderPageDto;
+import com.lambkin.blog.model.dto.AdminCoderPageRequest;
 import com.lambkin.blog.service.ICoderService;
-import com.lambkin.blog.ya.YaApiResult;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.ApiResponse;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +24,16 @@ public class CoderController {
 
 
     @GetMapping("/t-info")
-    public YaApiResult<?> queryLoginInfo(HttpServletRequest request) {
+    public ApiResponse<?> queryLoginInfo(HttpServletRequest request) {
         CoderInfoVo result = coderServiceImpl.queryInfoByNo(request.getHeader("Authorization"));
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/list-admin")
-    public YaApiResult<?> queryCoderPageAdmin(@RequestBody AdminCoderPageDto dto) {
-        YaPageBean<?> result = coderServiceImpl.queryCoderPageAdmin(dto);
-        return YaApiResult.ok(result);
+    public ApiResponse<?> queryCoderPageAdmin(@RequestBody AdminCoderPageRequest dto) {
+        YaPage<?> result = coderServiceImpl.queryCoderPageAdmin(dto);
+        return ApiResponse.ok(result);
     }
 
 }

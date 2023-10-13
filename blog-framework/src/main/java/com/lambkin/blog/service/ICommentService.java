@@ -1,9 +1,9 @@
 package com.lambkin.blog.service;
 
-import com.lambkin.blog.model.dto.AdminCommentPageDto;
-import com.lambkin.blog.model.dto.CommentPageDto;
+import com.lambkin.blog.model.dto.AdminCommentPageRequest;
+import com.lambkin.blog.model.dto.CommentPageRequest;
 import com.lambkin.blog.model.dto.PublishCommentDto;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.YaPage;
 
 /**
  * <p>评论表--service</p>
@@ -13,12 +13,12 @@ import com.lambkin.blog.ya.YaPageBean;
  */
 public interface ICommentService {
 
-    YaPageBean<?> queryCommentByConditionPage(CommentPageDto dto);
+    YaPage<?> queryCommentByConditionPage(CommentPageRequest dto);
 
     void publishComment(PublishCommentDto dto);
 
     Integer countCommentTotalByArticleNoOrType(String articleNo, Integer type);
 
-    YaPageBean<?> queryCommentByConditionPageAdmin(AdminCommentPageDto dto);
+    YaPage<?> queryCommentByConditionPageAdmin(AdminCommentPageRequest dto);
 }
 

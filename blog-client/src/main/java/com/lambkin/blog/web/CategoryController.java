@@ -3,7 +3,7 @@ package com.lambkin.blog.web;
 import com.lambkin.blog.model.vo.AdminCategoryVo;
 import com.lambkin.blog.model.vo.CategoryDetailVo;
 import com.lambkin.blog.service.ICategoryService;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.ApiResponse;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,16 +26,16 @@ public class CategoryController {
 
 
     @GetMapping("/list")
-    public YaApiResult<?> queryCategoryList() {
+    public ApiResponse<?> queryCategoryList() {
         List<CategoryDetailVo> result = categoryServiceImpl.queryCategoryList();
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 
     @GetMapping("/list-admin")
-    public YaApiResult<?> queryCategoryListAdmin() {
+    public ApiResponse<?> queryCategoryListAdmin() {
         List<AdminCategoryVo> result = categoryServiceImpl.queryCategoryDetailListAdmin();
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 }

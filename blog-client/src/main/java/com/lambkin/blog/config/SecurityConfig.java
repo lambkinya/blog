@@ -3,8 +3,8 @@ package com.lambkin.blog.config;
 import com.alibaba.fastjson.JSON;
 import com.lambkin.blog.filter.AuthenticationTokenFilter;
 import com.lambkin.blog.filter.LoginFilter;
-import com.lambkin.blog.ya.YaApiCodeEnum;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.ApiResponse;
+import com.lambkin.blog.ya.AppErrorCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -88,7 +88,7 @@ public class SecurityConfig {
                 exceptionHandling.authenticationEntryPoint((request, response, authException) -> {
                     response.setContentType("text/html;charset=UTF-8");
                     response.getWriter().write(JSON.toJSONString(
-                            YaApiResult.error(YaApiCodeEnum.NEED_LOGIN)
+                            ApiResponse.error(AppErrorCode.SYSTEM_ERROR)
                     ));
                 })
         );
@@ -103,7 +103,7 @@ public class SecurityConfig {
                                     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                                         response.setContentType("application/json;charset=UTF-8");
                                         response.setStatus(HttpStatus.OK.value());
-                                        response.getWriter().write(JSON.toJSONString(YaApiResult.ok("logout - ok")));
+                                        response.getWriter().write(JSON.toJSONString(ApiResponse.ok("logout - ok")));
                                     }
                                 })
                 );

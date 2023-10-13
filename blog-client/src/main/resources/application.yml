@@ -10,6 +10,10 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 5MB
+  elasticsearch:
+    uris: http://127.0.0.1:9200
+    username: elastic
+    password: HpqjL5GoQDmTRQxn4ZNm
 mybatis-plus:
   configuration:
     # 日志

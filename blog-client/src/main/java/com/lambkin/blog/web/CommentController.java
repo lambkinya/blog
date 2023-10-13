@@ -1,11 +1,11 @@
 package com.lambkin.blog.web;
 
-import com.lambkin.blog.model.dto.AdminCommentPageDto;
-import com.lambkin.blog.model.dto.CommentPageDto;
+import com.lambkin.blog.model.dto.AdminCommentPageRequest;
+import com.lambkin.blog.model.dto.CommentPageRequest;
 import com.lambkin.blog.model.dto.PublishCommentDto;
 import com.lambkin.blog.service.ICommentService;
-import com.lambkin.blog.ya.YaApiResult;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.ApiResponse;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,30 +24,30 @@ public class CommentController {
 
 
     @PostMapping("/list")
-    public YaApiResult<?> queryCommentByConditionPage(@RequestBody CommentPageDto dto) {
-        YaPageBean<?> result = commentServiceImpl.queryCommentByConditionPage(dto);
-        return YaApiResult.ok(result);
+    public ApiResponse<?> queryCommentByConditionPage(@RequestBody CommentPageRequest dto) {
+        YaPage<?> result = commentServiceImpl.queryCommentByConditionPage(dto);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/list-admin")
-    public YaApiResult<?> queryCommentByConditionPageAdmin(@RequestBody AdminCommentPageDto dto) {
-        YaPageBean<?> result = commentServiceImpl.queryCommentByConditionPageAdmin(dto);
-        return YaApiResult.ok(result);
+    public ApiResponse<?> queryCommentByConditionPageAdmin(@RequestBody AdminCommentPageRequest dto) {
+        YaPage<?> result = commentServiceImpl.queryCommentByConditionPageAdmin(dto);
+        return ApiResponse.ok(result);
     }
 
 
     @PostMapping("/publish")
-    public YaApiResult<?> publishComment(@RequestBody PublishCommentDto dto) {
+    public ApiResponse<?> publishComment(@RequestBody PublishCommentDto dto) {
         commentServiceImpl.publishComment(dto);
-        return YaApiResult.ok();
+        return ApiResponse.ok();
     }
 
 
     @GetMapping("/total")
-    public YaApiResult<?> countCommentTotalByArticleNoOrType(String articleNo, Integer type) {
+    public ApiResponse<?> countCommentTotalByArticleNoOrType(String articleNo, Integer type) {
         Integer result = commentServiceImpl.countCommentTotalByArticleNoOrType(articleNo, type);
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 }

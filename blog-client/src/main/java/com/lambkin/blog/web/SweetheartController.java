@@ -2,7 +2,7 @@ package com.lambkin.blog.web;
 
 import com.lambkin.blog.model.vo.SweetheartVo;
 import com.lambkin.blog.service.ISweetheartService;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.ApiResponse;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +23,9 @@ public class SweetheartController {
 
 
     @GetMapping("/admin")
-    private YaApiResult<?> queryAdminSweetheart() {
+    private ApiResponse<?> queryAdminSweetheart() {
         SweetheartVo result = sweetheartServiceImpl.queryAdminSweetheart();
-        return YaApiResult.ok(result);
+        return ApiResponse.ok(result);
     }
 
 }

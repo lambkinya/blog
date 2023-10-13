@@ -6,7 +6,7 @@ package com.lambkin.blog.ya;
  * @author lambkinya
  * @since 2023-09-18 11:32:48
  */
-public class YaBasePageDto {
+public class PageRequest {
 
     private Long current;
 

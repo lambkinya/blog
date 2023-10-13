@@ -1,6 +1,6 @@
 package com.lambkin.blog.model.dto;
 
-import com.lambkin.blog.ya.YaBasePageDto;
+import com.lambkin.blog.ya.PageRequest;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2023-09-26 22:14:15
  */
 @Data
-public class AdminCommentPageDto extends YaBasePageDto {
+public class AdminCommentPageRequest extends PageRequest {
 
     private String type;
 

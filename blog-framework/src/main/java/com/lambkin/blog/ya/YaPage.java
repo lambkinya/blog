@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Data
 @NoArgsConstructor
-public class YaPageBean<E> implements Serializable {
+public class YaPage<E> implements Serializable {
 
     /**
      * 用户信息总条数
@@ -48,8 +48,8 @@ public class YaPageBean<E> implements Serializable {
      * @param iPage
      * @return
      */
-    public static <T> YaPageBean<T> build(IPage<T> iPage) {
-        YaPageBean pageRes = new YaPageBean();
+    public static <T> YaPage<T> build(IPage<T> iPage) {
+        YaPage pageRes = new YaPage();
         BeanUtils.copyProperties(iPage, pageRes);
         return pageRes;
     }
@@ -62,8 +62,8 @@ public class YaPageBean<E> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> YaPageBean<T> build(IPage iPage, List<T> objList) {
-        YaPageBean pageRes = new YaPageBean();
+    public static <T> YaPage<T> build(IPage iPage, List<T> objList) {
+        YaPage pageRes = new YaPage();
         BeanUtils.copyProperties(iPage, pageRes);
         if (CollectionUtils.isEmpty(iPage.getRecords())) {
             return pageRes;
@@ -80,7 +80,7 @@ public class YaPageBean<E> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> YaPageBean<T> build(IPage iPage, Class<T> cls) {
+    public static <T> YaPage<T> build(IPage iPage, Class<T> cls) {
         if (CollectionUtils.isEmpty(iPage.getRecords())) {
             return build(iPage);
         }

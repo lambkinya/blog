@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lambkin.blog.model.domain.CoderEntity;
 import com.lambkin.blog.model.domain.CommentEntity;
 import com.lambkin.blog.enums.CommentTypeEnum;
-import com.lambkin.blog.model.dto.AdminCommentPageDto;
-import com.lambkin.blog.model.dto.CommentPageDto;
+import com.lambkin.blog.model.dto.AdminCommentPageRequest;
+import com.lambkin.blog.model.dto.CommentPageRequest;
 import com.lambkin.blog.model.dto.PublishCommentDto;
 import com.lambkin.blog.model.vo.AdminCommentPageVo;
 import com.lambkin.blog.model.vo.CommentVo;
@@ -13,7 +13,7 @@ import com.lambkin.blog.service.ICommentService;
 import com.lambkin.blog.service.query.CoderQuery;
 import com.lambkin.blog.service.query.CommentQuery;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -36,7 +36,7 @@ public class CommentServiceImpl implements ICommentService {
 
 
     @Override
-    public YaPageBean<?> queryCommentByConditionPage(CommentPageDto dto) {
+    public YaPage<?> queryCommentByConditionPage(CommentPageRequest dto) {
         IPage<CommentEntity> pageInfo = commentQuery.queryRootCommentPage(
                 dto.getArticleNo(), dto.getType(), dto.getCurrent(), dto.getSize()
         );
@@ -45,7 +45,7 @@ public class CommentServiceImpl implements ICommentService {
                 entity -> buildCommentOtherInfo(entity, dto.getCurrent(), dto.getSize())
         ).toList();
 
-        return YaPageBean.build(pageInfo, commentVoList);
+        return YaPage.build(pageInfo, commentVoList);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public YaPageBean<?> queryCommentByConditionPageAdmin(AdminCommentPageDto dto) {
+    public YaPage<?> queryCommentByConditionPageAdmin(AdminCommentPageRequest dto) {
         IPage<CommentEntity> pageInfo = commentQuery.queryAllCommentAdmin(
                 dto.getSourceNo(), dto.getCoderNo(),
                 StringUtils.hasText(dto.getType()) ? CommentTypeEnum.descOf(dto.getType()).getCode() : null
@@ -75,7 +75,7 @@ public class CommentServiceImpl implements ICommentService {
             return vo;
         }).toList();
 
-        return YaPageBean.build(pageInfo, commentPageVos);
+        return YaPage.build(pageInfo, commentPageVos);
     }
 
 

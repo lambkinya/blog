@@ -12,7 +12,7 @@ import com.lambkin.blog.service.IAuthService;
 import com.lambkin.blog.service.ICategoryService;
 import com.lambkin.blog.service.ITagService;
 import com.lambkin.blog.service.query.CoderQuery;
-import com.lambkin.blog.ya.YaApiResult;
+import com.lambkin.blog.ya.ApiResponse;
 import com.lambkin.blog.ya.YaBeanNoUtil;
 import com.lambkin.blog.ya.YaCommonHelper;
 import com.lambkin.blog.ya.YaIpUtil;
@@ -65,19 +65,19 @@ public class ClientController {
 
 
     @PostMapping("/register")
-    public YaApiResult<?> register(@RequestBody LoginInfoVo infoVo) {
+    public ApiResponse<?> register(@RequestBody LoginInfoVo infoVo) {
         CoderEntity coderEntity = new CoderEntity();
         coderEntity.setNo(YaBeanNoUtil.generateNo("YA"));
         coderEntity.setUsername(infoVo.getAccount());
         coderEntity.setPassword(bCryptPasswordEncoder.encode(infoVo.getPassword()));
         coderQuery.save(coderEntity);
 
-        return YaApiResult.ok(coderEntity.getPassword());
+        return ApiResponse.ok(coderEntity.getPassword());
     }
 
 
     @PostMapping("/upload")
-    public YaApiResult<?> upload(MultipartFile file) {
+    public ApiResponse<?> upload(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         if (!originalFilename.endsWith(".png")
                 && !originalFilename.endsWith(".jpg")
@@ -87,29 +87,29 @@ public class ClientController {
 
         String path = YaCommonHelper.generateFilePath(Objects.requireNonNull(originalFilename));
         String url = uploadImg(file, path);
-        return YaApiResult.ok(url);
+        return ApiResponse.ok(url);
     }
 
 
     @GetMapping("/visitor")
-    public YaApiResult<?> visitorCheckIn(HttpServletRequest request) {
+    public ApiResponse<?> visitorCheckIn(HttpServletRequest request) {
         String ipAddress = YaIpUtil.obtainClientIpAddress(request);
-        return YaApiResult.ok(ipAddress);
+        return ApiResponse.ok(ipAddress);
     }
 
 
     @GetMapping("/category-tag-list-admin")
-    public YaApiResult<?> getCategoryAndTagList() {
+    public ApiResponse<?> getCategoryAndTagList() {
         List<CategoryVo> categoryVoList = categoryServiceImpl.queryCategoryListAdmin();
         List<TagVo> tagVoList = tagServiceImpl.queryTagListAdmin();
 
-        return YaApiResult.ok(new AdminCategoryTagVo(categoryVoList, tagVoList));
+        return ApiResponse.ok(new AdminCategoryTagVo(categoryVoList, tagVoList));
     }
 
 
     @GetMapping("/blog-info")
-    public YaApiResult<?> test() {
-        return YaApiResult.ok(
+    public ApiResponse<?> test() {
+        return ApiResponse.ok(
                 new BlogInfoVo(4, 3, 3, 26556,
                         new BlogInfoVo.SiteConfig(
                                 1,"https://static.ttkwsd.top/config/7b6f25adc2b9627b8918176888bee3b5.png",

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lambkin.blog.dao.ArticleMapper;
 import com.lambkin.blog.dao.CategoryMapper;
 import com.lambkin.blog.model.domain.ArticleEntity;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -38,7 +38,7 @@ public class ArticleQuery {
          return articleMapper.selectList(null);
     }
 
-    public YaPageBean<?> queryPage(Integer pageNo, Integer pageSize, String categoryNo) {
+    public YaPage<?> queryPage(Integer pageNo, Integer pageSize, String categoryNo) {
 //        Page<ArticleEntity> entityPage = articleMapper.selectPage(
 //                new Page<ArticleEntity>(pageNo, pageSize),
 //                new LambdaQueryWrapper<ArticleEntity>()
@@ -60,11 +60,11 @@ public class ArticleQuery {
 //            }
 //        }).toList();
 //
-//        return YaPageBean.build(entityPage, records);
+//        return YaPage.build(entityPage, records);
         return null;
     }
 
-    public YaPageBean<?> queryDesc(Integer pageNo, Integer pageSize) {
+    public YaPage<?> queryDesc(Integer pageNo, Integer pageSize) {
 //        Page<ArticleEntity> entityPage = articleMapper.selectPage(
 //                new Page<ArticleEntity>(pageNo, pageSize),
 //                new LambdaQueryWrapper<ArticleEntity>()
@@ -72,16 +72,17 @@ public class ArticleQuery {
 //                        .orderByDesc(ArticleEntity::getCreateTime)
 //        );
 //
-//        return YaPageBean.build(entityPage, ArticleListVo.class);
+//        return YaPage.build(entityPage, ArticleListVo.class);
         return null;
     }
 
-    public IPage<ArticleEntity> queryArticleByConditionPage(String key, String categoryNo, Boolean openRecommend, Long current, Long size) {
+    public IPage<ArticleEntity> queryArticleByConditionPage(String key, String categoryNo, String tagNo, Boolean openRecommend, Long current, Long size) {
         return articleMapper.selectPage(
                 new Page<>(current, size),
                 new LambdaQueryWrapper<ArticleEntity>()
                         .like(StringUtils.hasText(key), ArticleEntity::getTitle, key)
                         .eq(StringUtils.hasText(categoryNo), ArticleEntity::getCategoryNo, categoryNo)
+                        .eq(StringUtils.hasText(tagNo), ArticleEntity::getTagNo, tagNo)
                         .eq(openRecommend, ArticleEntity::getRecommendStatus, 1)
         );
     }
@@ -96,5 +97,12 @@ public class ArticleQuery {
         return articleMapper.selectCount(
                 new LambdaQueryWrapper<ArticleEntity>().eq(ArticleEntity::getTagNo, tagNo)
         ).intValue();
+    }
+
+    public List<ArticleEntity> queryByNos(List<String> articleNoList) {
+        return articleMapper.selectList(
+                new LambdaQueryWrapper<ArticleEntity>()
+                        .in(ArticleEntity::getNo, articleNoList)
+        );
     }
 }

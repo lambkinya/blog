@@ -2,8 +2,8 @@ package com.lambkin.blog.service;
 
 import com.lambkin.blog.model.domain.CoderEntity;
 import com.lambkin.blog.model.CoderInfoVo;
-import com.lambkin.blog.model.dto.AdminCoderPageDto;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.model.dto.AdminCoderPageRequest;
+import com.lambkin.blog.ya.YaPage;
 
 /**
  * <p>Coder--service</p>
@@ -17,6 +17,6 @@ public interface ICoderService {
 
     CoderInfoVo queryInfoByNo(String apiToken);
 
-    YaPageBean<?> queryCoderPageAdmin(AdminCoderPageDto dto);
+    YaPage<?> queryCoderPageAdmin(AdminCoderPageRequest dto);
 }
 

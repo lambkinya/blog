@@ -1,14 +1,12 @@
 package com.lambkin.blog.web;
 
+import com.lambkin.blog.model.request.WeiYanPublishRequest;
 import com.lambkin.blog.service.IWeiYanService;
-import com.lambkin.blog.ya.YaApiResult;
-import com.lambkin.blog.ya.YaBasePageDto;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.ApiResponse;
+import com.lambkin.blog.ya.PageRequest;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>微言表--web</p>
@@ -24,12 +22,22 @@ public class WeiYanController {
     private IWeiYanService weiYanServiceImpl;
 
 
-    @PostMapping("/list")
-    public YaApiResult<?> queryPage(@RequestBody YaBasePageDto dto) {
-        YaPageBean<?> result = weiYanServiceImpl.queryPage(dto.getCurrent(), dto.getSize());
-        return YaApiResult.ok(result);
+    @PostMapping("/list/{source}/{type}")
+    public ApiResponse<?> queryPage(@PathVariable String source, @PathVariable Integer type, @RequestBody PageRequest dto) {
+        YaPage<?> result = weiYanServiceImpl.queryPage(source, type, dto.getCurrent(), dto.getSize());
+        return ApiResponse.ok(result);
     }
 
+    @PostMapping("/publish")
+    public ApiResponse<?> publish(@RequestBody WeiYanPublishRequest request) {
+        String coderNo = request.getCoderNo();
+        String content = request.getContent();
+        Boolean isPublic = request.getIsPublic();
+        Integer type = request.getType();
+
+        weiYanServiceImpl.publish(coderNo, content, isPublic, type);
+        return ApiResponse.ok();
+    }
 
 }
 

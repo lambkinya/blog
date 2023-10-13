@@ -1,7 +1,7 @@
 package com.lambkin.blog.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.lambkin.blog.ya.YaBaseBean;
+import com.lambkin.blog.ya.BaseBean;
 
 import java.io.Serial;
 
@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("friend_link")
-public class FriendLinkEntity extends YaBaseBean {
+public class FriendLinkEntity extends BaseBean {
 
     @Serial
     private static final long serialVersionUID = -18920724957259547L;

@@ -1,9 +1,7 @@
 package com.lambkin.blog.model.domain;
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.lambkin.blog.ya.YaBaseBean;
+import com.lambkin.blog.ya.BaseBean;
 
 import java.io.Serial;
 
@@ -17,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName("comment")
-public class CommentEntity extends YaBaseBean {
+public class CommentEntity extends BaseBean {
 
     @Serial
     private static final long serialVersionUID = 474892791532009475L;

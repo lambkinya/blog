@@ -5,13 +5,18 @@ import com.lambkin.blog.model.domain.ArticleEntity;
 import com.lambkin.blog.model.domain.CategoryEntity;
 import com.lambkin.blog.model.domain.CoderEntity;
 import com.lambkin.blog.model.domain.TagEntity;
+import com.lambkin.blog.model.dto.ArticleEsDto;
 import com.lambkin.blog.model.dto.ArticlePageDto;
 import com.lambkin.blog.model.vo.*;
 import com.lambkin.blog.service.IArticleService;
 import com.lambkin.blog.service.query.*;
 import com.lambkin.blog.ya.YaBeanCopyUtil;
-import com.lambkin.blog.ya.YaPageBean;
+import com.lambkin.blog.ya.YaPage;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.elasticsearch.client.elc.NativeQuery;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
@@ -25,6 +30,7 @@ import java.util.List;
  * @since 2023-09-17 13:25:24
  */
 @Service("iArticleService")
+@Slf4j
 public class ArticleServiceImpl implements IArticleService {
 
     @Resource
@@ -37,20 +43,55 @@ public class ArticleServiceImpl implements IArticleService {
     private CommentQuery commentQuery;
     @Resource
     private CoderQuery coderQuery;
+    @Resource
+    private ElasticsearchOperations elasticsearchOperations;
 
 
     @Override
-    public YaPageBean<?> queryArticleByConditionPage(ArticlePageDto dto) {
+    public YaPage<?> doSearch(String searchText, long pageNum, long pageSize) {
+        // es 起始页为 0
+        long current = pageNum - 1;
+        NativeQuery nativeQuery = NativeQuery.builder()
+                .withQuery(q -> q
+                        .match(m -> m
+                                .field("title")
+                                .query(searchText)
+                        )
+                )
+                .withFilter(q -> q
+                        .term(t -> t
+                                .field("yn")
+                                .value(0)
+                        )
+                )
+                .build();
+        SearchHits<ArticleEsDto> searchHits = elasticsearchOperations.search(nativeQuery, ArticleEsDto.class);
+
+        List<String> articleNoList = searchHits.getSearchHits().stream().map(item -> item.getContent().getNo()).toList();
+        List<ArticleEntity> articleEntityList = articleQuery.queryByNos(articleNoList);
+        List<ArticlePageVo> articlePageVoList = YaBeanCopyUtil.copyBeanList(articleEntityList, ArticlePageVo.class);
+
+        YaPage<ArticlePageVo> result = new YaPage<>();
+        result.setRecords(articlePageVoList);
+        result.setTotal(searchHits.getTotalHits());
+        result.setCurrent(pageNum);
+        result.setSize(pageSize);
+
+        return result;
+    }
+
+    @Override
+    public YaPage<?> queryArticleByConditionPage(ArticlePageDto dto) {
 
         IPage<ArticleEntity> pageInfo = articleQuery.queryArticleByConditionPage(
-                dto.getKey(), dto.getCategoryNo(), false, dto.getCurrent(), dto.getSize()
+                dto.getKey(), dto.getCategoryNo(), dto.getTagNo(), false, dto.getCurrent(), dto.getSize()
         );
 
         List<ArticlePageVo> articleList = pageInfo.getRecords().stream().map(
                 article -> buildArticleOtherInfo(article, ArticlePageVo.class)
         ).toList();
 
-        return YaPageBean.build(pageInfo, articleList);
+        return YaPage.build(pageInfo, articleList);
     }
 
     @Override
@@ -67,9 +108,9 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public YaPageBean<?> queryRecommendArticlePage(Long current, Long size) {
+    public YaPage<?> queryRecommendArticlePage(Long current, Long size) {
         IPage<ArticleEntity> pageInfo = articleQuery.queryArticleByConditionPage(
-                null, null, true, current, size
+                null, null, null, true, current, size
         );
 
         List<RecommendArticleVo> recommendArticleVos = pageInfo.getRecords().stream().map(entity -> {
@@ -81,14 +122,14 @@ public class ArticleServiceImpl implements IArticleService {
             return recommendArticleVo;
         }).toList();
 
-        return YaPageBean.build(pageInfo, recommendArticleVos);
+        return YaPage.build(pageInfo, recommendArticleVos);
     }
 
     @Override
-    public YaPageBean<?> queryArticleByConditionPageAdmin(ArticlePageDto dto) {
+    public YaPage<?> queryArticleByConditionPageAdmin(ArticlePageDto dto) {
 
         IPage<ArticleEntity> pageInfo = articleQuery.queryArticleByConditionPage(
-                dto.getKey(), dto.getCategoryNo(), false, dto.getCurrent(), dto.getSize()
+                dto.getKey(), dto.getCategoryNo(), null, false, dto.getCurrent(), dto.getSize()
         );
 
         List<AdminArticlePageVo> articleList = pageInfo.getRecords().stream().map(entity -> {
@@ -107,9 +148,13 @@ public class ArticleServiceImpl implements IArticleService {
             return vo;
         }).toList();
 
-        return YaPageBean.build(pageInfo, articleList);
+        return YaPage.build(pageInfo, articleList);
     }
 
+    @Override
+    public List<ArticleEntity> searchAllInner() {
+        return articleQuery.queryList();
+    }
 
     /**
      * <p>填充该文章关联的分类和标签信息</p>
