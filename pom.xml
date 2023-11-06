@@ -18,7 +18,7 @@
     <description>博客--父工程</description>
     <modules>
         <module>blog-framework</module>
-        <module>blog-client</module>
+        <module>blog-web</module>
     </modules>
 
 
@@ -34,12 +34,12 @@
         <spring-cloud-starter-openfeign.version>4.0.1</spring-cloud-starter-openfeign.version>
         <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
-        <mybatis-plus-core.version>3.5.3</mybatis-plus-core.version>
         <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
         <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
         <annotations.version>24.0.1</annotations.version>
         <jjwt-api.version>0.11.5</jjwt-api.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
+        <jakarta.validation.version>3.0.2</jakarta.validation.version>
 
         <hutool-all.version>5.8.20</hutool-all.version>
         <fastjson.version>1.2.83</fastjson.version>
@@ -92,11 +92,16 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-            <!-- MybatisPlus依赖-->
+            <!-- MybatisPlus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
             </dependency>
             <!-- mySQL数据库驱动包管理 -->
             <dependency>
@@ -122,6 +127,13 @@
                 <artifactId>qiniu-java-sdk</artifactId>
                 <version>${qiniu-java-sdk.version}</version>
             </dependency>
+            <!-- Java 参数校验 -->
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p></p>
+ * 实体类父类
  *
  * @author lambkinya
  * @since 2023-09-10 11:26:13
@@ -37,14 +37,7 @@ public class BaseBean implements Serializable {
     private LocalDateTime updateTime;
 
     /**
-     * 版本号，每次修改+1
-     */
-    @Version
-    @TableField(fill = FieldFill.INSERT)
-    private Integer version = 0;
-
-    /**
-     * 逻辑删除标记，0代表未删除，1代表已删除
+     * 逻辑删除标记，0.未删除，1.已删除
      */
     @TableLogic
     private Integer yn;

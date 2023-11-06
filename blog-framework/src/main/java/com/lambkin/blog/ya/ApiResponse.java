@@ -5,6 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 统一响应
+ *
  * @author lambkinya
  * @since 2023-09-09 22:43:27
  */
@@ -18,17 +20,18 @@ public class ApiResponse<T> implements Serializable {
 
     /**
      * 响应状态码
+     *
      * @see com.lambkin.blog.ya.AppErrorCode
      */
-    private Integer code;
+    private String code;
 
     /**
-     * 响应消息
+     * 响应消息，为前端展示
      */
     private String message;
 
     /**
-     * 响应失败时，返回具体错误信息
+     * 响应失败时，返回具体错误信息，为用户展示
      */
     private String description;
 
@@ -43,37 +46,27 @@ public class ApiResponse<T> implements Serializable {
             this.code = AppErrorCode.SUCCESS.getCode();
             this.message = AppErrorCode.SUCCESS.getMessage();
             this.success = true;
-        }else {
+        } else {
             this.success = false;
         }
     }
 
-    private ApiResponse(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 
-    private ApiResponse(Integer code, String message, String description) {
+    private ApiResponse(String code, String message, String description) {
         this.code = code;
         this.message = message;
         this.description = description;
     }
 
 
-    public static ApiResponse<?> error(int code, String message) {
-        ApiResponse<?> result = new ApiResponse<>(code, message);
-        result.setSuccess(false);
-        return result;
-    }
-
-    public static ApiResponse<?> error(int code, String message, String description) {
+    public static ApiResponse<?> error(String code, String message, String description) {
         ApiResponse<?> result = new ApiResponse<>(code, message, description);
         result.setSuccess(false);
         return result;
     }
 
     public static ApiResponse<?> error(AppErrorCode codeEnum) {
-        ApiResponse<?> result = new ApiResponse<>(codeEnum.getCode(), codeEnum.getMessage());
+        ApiResponse<?> result = new ApiResponse<>(codeEnum.getCode(), codeEnum.getMessage(), codeEnum.getMessage());
         result.setSuccess(false);
         return result;
     }
@@ -87,11 +80,7 @@ public class ApiResponse<T> implements Serializable {
     public static ApiResponse<?> ok() {
         return new ApiResponse<>(true);
     }
-    public static ApiResponse<?> ok(int code, String message) {
-        ApiResponse<?> result = new ApiResponse<>(code, message);
-        result.setSuccess(true);
-        return result;
-    }
+
 
     public static <V> ApiResponse<V> ok(V data) {
         ApiResponse<V> result = new ApiResponse<>(true);

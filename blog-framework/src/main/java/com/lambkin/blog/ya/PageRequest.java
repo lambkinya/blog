@@ -1,30 +1,18 @@
 package com.lambkin.blog.ya;
 
+import lombok.Data;
+
 /**
- * <p></p>
+ * 基础分页请求参数
  *
  * @author lambkinya
  * @since 2023-09-18 11:32:48
  */
+@Data
 public class PageRequest {
 
     private Long current;
 
-    private Long size;
+    private Long pageSize;
 
-    public Long getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Long current) {
-        this.current = current;
-    }
-
-    public Long getSize() {
-        return size;
-    }
-
-    public void setSize(Long size) {
-        this.size = size;
-    }
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * <p></p>
+ * OSS文件上传
  *
  * @author lambkinya
  * @since 2023-09-15 16:22:42
@@ -15,10 +15,11 @@ public class YaCommonHelper {
 
     /**
      * 生成OSS文件上传路径--yyyy/MM/dd/coderNo-uuid.jpg
+     *
      * @param fileName 要上传的文件原始名称
      * @return yyyy/MM/dd/coderNo-uuid.jpg
      */
-    public static String generateFilePath(String fileName){
+    public static String generateFilePath(String fileName) {
         // 根据日期生成路径   2023/9/15/
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
         String datePath = sdf.format(new Date());

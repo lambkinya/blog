@@ -3,6 +3,9 @@ package com.lambkin.blog.ya;
 import lombok.Getter;
 
 /**
+ * 错误码
+ * A : 客户端错误    B : 系统错误    C : 调用第三方服务错误
+ *
  * @author lambkinya
  * @since 2023-09-09 22:44:51
  */
@@ -12,33 +15,36 @@ public enum AppErrorCode {
     /**
      * 响应码枚举
      */
-    SUCCESS(0,"ok"),
+    SUCCESS("00000", "ok"),
 
-    PARAMS_ERROR(40000, "请求参数错误..."),
-    NULL_ERROR(40001, "请求数据为空..."),
-    ACCOUNT_HAS_EXIST(40002, "账号已存在..."),
+    CLIENT_ERROR("A0001", "客户端错误..."),
+    SYSTEM_ERROR("B0001", "系统错误..."),
+    THIRD_PARTY_ERROR("C0001", "调用第三方服务错误..."),
 
-    NOT_LOGIN(40100,"需要登录后操作..."),
-    PERMISSION_DENIED(40101,"无权限, 拒绝访问..."),
+    PARAMS_ERROR("A0101", "请求参数错误..."),
+    NULL_ERROR("A0102", "请求数据为空..."),
 
-    SYSTEM_ERROR(50000,"系统错误..."),
+    ACCOUNT_HAS_EXIST("A0201", "账号已存在..."),
+    EMAIL_HAS_EXIST("A0202", "邮箱已被绑定..."),
+    EMAIL_NOT_BINDING("A0203", "邮箱未绑定..."),
+    PHONE_NOT_BINDING("A0204", "手机号未绑定..."),
+
+    NOT_LOGIN("A0301", "需要登录后操作..."),
+    PERMISSION_DENIED("A0302", "无权限, 拒绝访问..."),
+    ACCOUNT_BANNED("A0303", "该账号已被封禁..."),
+
+
+
     ;
 
 
-    final int code;
+    final String code;
     final String message;
-    String description = "";
 
 
-
-    AppErrorCode(int code, String errorMessage){
+    AppErrorCode(String code, String errorMessage) {
         this.code = code;
         this.message = errorMessage;
     }
 
-    AppErrorCode(int code, String errorMessage, String description){
-        this.code = code;
-        this.message = errorMessage;
-        this.description = description;
-    }
 }

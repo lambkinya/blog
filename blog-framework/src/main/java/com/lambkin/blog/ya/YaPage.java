@@ -8,11 +8,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p></p>
+ * 自定义分页信息
  *
  * @author lambkinya
  * @since 2023-09-10 19:43:04
@@ -42,14 +43,16 @@ public class YaPage<E> implements Serializable {
      */
     private List<E> records;
 
+
     /**
      * 同类型转换
      *
-     * @param iPage
-     * @return
+     * @param iPage 数据库返回的分页信息
+     * @param <K>   数据库返回的实体类
+     * @return 返回给前端的分页信息
      */
-    public static <T> YaPage<T> build(IPage<T> iPage) {
-        YaPage pageRes = new YaPage();
+    public static <K> YaPage<K> build(IPage<K> iPage) {
+        YaPage<K> pageRes = new YaPage<>();
         BeanUtils.copyProperties(iPage, pageRes);
         return pageRes;
     }
@@ -57,13 +60,14 @@ public class YaPage<E> implements Serializable {
     /**
      * 在应用方法内提前构造recordList，这里直接赋值
      *
-     * @param iPage
-     * @param objList
-     * @param <T>
-     * @return
+     * @param iPage   数据库返回的分页信息
+     * @param objList 提前构造好的 list 数据
+     * @param <K>     数据库返回的实体类
+     * @param <T>     脱敏后的实体类
+     * @return 返回给前端的分页信息
      */
-    public static <T> YaPage<T> build(IPage iPage, List<T> objList) {
-        YaPage pageRes = new YaPage();
+    public static <K, T> YaPage<T> build(IPage<K> iPage, List<T> objList) {
+        YaPage<T> pageRes = new YaPage<>();
         BeanUtils.copyProperties(iPage, pageRes);
         if (CollectionUtils.isEmpty(iPage.getRecords())) {
             return pageRes;
@@ -75,26 +79,31 @@ public class YaPage<E> implements Serializable {
     /**
      * 不同类型，属性包含转换
      *
-     * @param iPage
-     * @param cls
-     * @param <T>
-     * @return
+     * @param iPage 数据库返回的分页信息
+     * @param cls   脱敏后的实体类 类型
+     * @param <K>   数据库返回的实体类
+     * @param <T>   脱敏后的实体类
+     * @return 返回给前端的分页信息
      */
-    public static <T> YaPage<T> build(IPage iPage, Class<T> cls) {
+    public static <K, T> YaPage<T> build(IPage<K> iPage, Class<T> cls) {
         if (CollectionUtils.isEmpty(iPage.getRecords())) {
-            return build(iPage);
+            return build(iPage, cls);
         }
         List<T> objList = new ArrayList<>();
         for (Object e : iPage.getRecords()) {
             T o = null;
             try {
-                o = cls.newInstance();
+                o = cls.getDeclaredConstructor().newInstance();
             } catch (InstantiationException e1) {
                 log.error("pageRes error1", e1);
             } catch (IllegalAccessException e2) {
                 log.error("pageRes error2", e2);
+            } catch (InvocationTargetException | NoSuchMethodException e3) {
+                log.error("pageRes error3", e3);
             }
-            BeanUtils.copyProperties(e, o);
+            if (o != null) {
+                BeanUtils.copyProperties(e, o);
+            }
             objList.add(o);
         }
         return build(iPage, objList);
